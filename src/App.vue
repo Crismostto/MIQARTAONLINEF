@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    
+    <img alt="Restaurant logo" src="C:\xampp\htdocs\MIQARTAONLINE\miqartaonlinef\src\assets\logo-restaurant.jpg">
+    
+  <div id="nav">
+      <router-link to="/">Mesas</router-link> |
+      <router-link to="/articulos">Articulos</router-link>
   </div>
+  <router-view/>
+</div>
 </template>
 
 <style>
