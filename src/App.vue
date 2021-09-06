@@ -1,17 +1,23 @@
 <template>
   <div id="app">
+  
+    <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg">
     
-    <img alt="Restaurant logo" src="C:\xampp\htdocs\MIQARTAONLINE\miqartaonlinef\src\assets\logo-restaurant.jpg">
-    
-  <div id="nav">
+   <div id="nav">
       <router-link to="/">Mesas</router-link> |
       <router-link to="/articulos">Articulos</router-link>
-  </div>
+    
+      
+   </div>
   <router-view/>
 </div>
 </template>
 
 <style>
+.logo{
+  height: 400px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
