@@ -17,12 +17,12 @@
 <script>
 
 import ArticulosABM from '@/components/Articulo/ArticulosABM.vue'
-import Web from  '@/components/Web.vue'
+//import Web from  '@/components/Api/Web.vue'
 
 export default {
   components: {
     ArticulosABM,
-    Web
+//    Web
   },
 
    data(){
@@ -33,7 +33,7 @@ export default {
     },
 
       methods: {
-        ABMARTICULOS(accion,id=0){
+        ABMARTICULOS(accion){
           if (accion=='editar'){
              this.verabmrubro= true;
           }
