@@ -1,7 +1,7 @@
 <template>
   <div id="app">
   
-   <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg"> 
+ <!--  <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg"> -->
     
    <div id="nav">
       <div id="side-menu" class="menu-collapsed"> 
