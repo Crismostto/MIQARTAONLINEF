@@ -26,7 +26,7 @@
         <div id="menu-items">
             
             <div class="item"> 
-                <a href=#>
+                <a href="articulos">
                   <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
                   <div class="title"><span><router-link to="/articulos">Articulos</router-link></span> </div> 
                 <!--  <router-link to="/">Mesas</router-link> | -->
@@ -35,7 +35,7 @@
             </div>
 
               <div class="item separator"> 
-                <a href=#>
+                <a href="/">
                   <div class="icon"> <img src="..\src\assets\table.png" alt=""> </div>
                   <div class="title"><span><router-link to="/">Mesas</router-link></span> </div> 
                 </a>  
