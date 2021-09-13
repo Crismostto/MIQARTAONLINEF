@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import Api from '@/components/Api/Api.vue';
+import Web from '@/components/Api/Web.vue';
 
 export default {
     props: ['AbmAccion', 'AbmId'],
-    mixins:[Api],
+    mixins:[Web],
     data(){
         return{
             datos:{
