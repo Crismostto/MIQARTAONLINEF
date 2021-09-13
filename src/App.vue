@@ -6,6 +6,7 @@
   <div id="nav">
       <router-link to="/">Mesas</router-link> |
       <router-link to="/articulos">Articulos</router-link>
+      <router-link to="/articulos/categorias">rubros</router-link>
   </div>
   <router-view/>
 </div>
