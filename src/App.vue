@@ -26,20 +26,6 @@
         <div id="menu-items">
             
             <div class="item"> 
-<<<<<<< HEAD
-                  <router-link to="/articulos">
-                  <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
-                  <div class="title">Articulos</div>
-                 </router-link>
-            </div>
-
-            <!-- <div class="item"> 
-                <a href="articulos">
-                  <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
-                  <div class="title"><span><router-link to="/articulos">Articulos</router-link></span> </div>
-                </a>  
-            </div> -->
-=======
                 <router-link to="/articulos">
                   <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
                   <div class="title">Articulos </div> 
@@ -52,7 +38,6 @@
                   <div class="title">Rubros </div> 
                  </router-link>
             </div>
->>>>>>> f0e31e475e139d9385a609f33beb7e5944a32b72
 
               <div class="item separator"> 
                 <a href="/">

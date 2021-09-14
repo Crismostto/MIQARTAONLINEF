@@ -17,6 +17,8 @@
            <button v-on:click="ABMARTICULOS('eliminar',articulos.id)">Eliminar</button>
        </ul>
   </div>
+
+  
 </template>
 
 <script>
