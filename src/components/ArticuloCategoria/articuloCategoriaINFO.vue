@@ -25,7 +25,7 @@
                <td><button @click="abmrubros('editar', rubros.id)" class="editar">Editar</button>               
                 <button @click="abmrubros('eliminar', rubros.id)" class="eliminar">Eliminar</button></td>
                 
-                           </tr>
+            </tr>
        </table>
                
        

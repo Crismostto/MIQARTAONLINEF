@@ -26,13 +26,18 @@
         <div id="menu-items">
             
             <div class="item"> 
+                  <router-link to="/articulos">
+                  <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
+                  <div class="title">Articulos</div>
+                 </router-link>
+            </div>
+
+            <!-- <div class="item"> 
                 <a href="articulos">
                   <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
-                  <div class="title"><span><router-link to="/articulos">Articulos</router-link></span> </div> 
-                <!--  <router-link to="/">Mesas</router-link> | -->
-                <!--  <router-link to="/articulos">Articulos</router-link> -->
+                  <div class="title"><span><router-link to="/articulos">Articulos</router-link></span> </div>
                 </a>  
-            </div>
+            </div> -->
 
               <div class="item separator"> 
                 <a href="/">

@@ -17,7 +17,7 @@ export default {
             })
         },
 
-        funcObtenerDatos(ruta){
+        ObtenerDatos(ruta){
             let direccion = "http://127.0.0.1:8000/" + ruta
             console.log("obtener datos",direccion)
              return fetch(direccion,

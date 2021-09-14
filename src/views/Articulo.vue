@@ -1,9 +1,14 @@
 <template>
   <div class="about">
-    <ArticulosABM v-if="verabmarticulos"/>
-    <span>Ingresar</span>
        
-       <button v-on:click="ABMARTICULOS('agregar',articulos.id)">Agregar</button>
+    <span>Ingresar Articulo</span>
+    <button v-on:click="ABMARTICULOS('agregar',articulos.id)">Agregar</button>
+    <ArticulosABM 
+    v-if="verabmarticulos"
+    :AbmAccion=tipoDeAccion
+    :AbmId=llamadoId 
+    @salirDeAbmArticulos = mostrarAbmArticulos($event)
+    />
        <ul v-for="(articulos, index) in datos" :key="index">
            <li>
                {{articulos.nombre}}
@@ -35,7 +40,7 @@ export default {
   },
 
   created(){
-    this.ObtenerDatos()
+    this.TraerDatos()
   },
   
   methods: {
@@ -46,8 +51,8 @@ export default {
          
         },
 
-        ObtenerDatos(){
-        this.funcObtenerDatos('articulos')
+        TraerDatos(){
+        this.ObtenerDatos('articulos')
         .then (res => {
           this.datos = res
           console.log (res);

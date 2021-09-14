@@ -3,7 +3,7 @@ export default {
     
     methods:{
         traerDatosPorId(ruta, id){
-            let direccion= "http://127.0.0.1:8000/" + ruta + "/" + id;
+            let direccion= "http://127.0.0.1:8000/api/" + ruta + "/" + id;
             console.log("Traer datos por id ",direccion)
             return fetch(direccion,
             {
@@ -18,7 +18,7 @@ export default {
         },
 
         obtenerDatos(ruta){
-            let direccion = "http://127.0.0.1:8000/" + ruta;
+            let direccion = "http://127.0.0.1:8000/api/" + ruta;
             console.log("obtener datos",direccion);
              return fetch(direccion,
             {
@@ -32,7 +32,7 @@ export default {
             })
         },
         insertarDatosApi(ruta, agregarDatos){
-            let direccion ="http://127.0.0.1:8000/" +  ruta
+            let direccion ="http://127.0.0.1:8000/api/" +  ruta
             console.log("insertar datos api",direccion)
              return fetch(direccion,
             {
@@ -46,7 +46,7 @@ export default {
                 return respuesta.json()
             })
         },EditarDatosApi(ruta, id, agregarDatos){
-            let direccion ="http://127.0.0.1:8000/" + ruta+ "/" +id
+            let direccion ="http://127.0.0.1:8000/api/" + ruta+ "/" +id
             console.log("editar datos api",direccion)
              return fetch(direccion,
             {
@@ -62,7 +62,7 @@ export default {
             
 
         },EliminarDatosApi(ruta, id){
-          let direccion ="http://127.0.0.1:8000/" + ruta + "/" + id
+          let direccion ="http://127.0.0.1:8000/api/" + ruta + "/" + id
           console.log("eliminar Datos api",direccion)
             return fetch(direccion,
             {
