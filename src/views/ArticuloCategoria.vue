@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="about">
        
        <h1>rubros</h1>
        <button @click="abmrubros('agregar')" class="agregar">Agregar nuevo Rubro</button>
@@ -10,8 +10,7 @@
        @salirDeAbmRubros = mostrarAbmRubros($event)        
        ></articuloCategoriaABM>
        
-       <table>
-           
+       <table>           
            <tr>
                <th>Id</th>
                <th>tipo</th>
@@ -25,19 +24,8 @@
                <td><button @click="abmrubros('editar', rubros.id)" class="editar">Editar</button>               
                 <button @click="abmrubros('eliminar', rubros.id)" class="eliminar">Eliminar</button></td>
                 
-                           </tr>
-       </table>
-               
-       
-       <!-- <ul v-for="(rubros, index) in datos" :key="index">
-           <li>
-               {{rubros.nombre}}
-                <button @click="abmrubros('editar', rubros.id)">Editar</button>               
-                <button @click="abmrubros('eliminar', rubros.id)">Eliminar</button>
-                <button @click="abmrubros('consultar', rubros.id)">Consultar</button>
-           </li>
-           
-       </ul> -->
+            </tr>
+       </table>          
     </div> 
 </template>
 
@@ -54,7 +42,6 @@ export default {
          verabmrubro:false,
          tipoDeAccion: '',
          llamadoId:0,   
-         
         }
     },
 
@@ -70,17 +57,25 @@ export default {
             this.verabmrubro = !this.verabmrubro
         },
         traerDatos(){
-            this.obtenerDatos('articulos/categorias')
+            this.ObtenerDatos('articulos/categorias')
                 .then(respuesta =>{
                     this.datos = respuesta
+                    console.log('traer datos')
                 })
         },
         mostrarAbmRubros(ver){
             this.verabmrubro = false
             if(ver == true){
                 this.traerDatos()
+                console.log ("mostrarAbmRubros")
             }
         }
     }
 }
 </script>
+
+<style scoped>
+.about{
+  text-align: center;
+}
+</style>

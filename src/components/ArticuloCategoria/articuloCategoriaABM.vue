@@ -49,9 +49,7 @@ export default {
     methods:{
         aceptar(){
             if(this.AbmAccion == 'agregar'){
-                this.$emit('salirDeAbmRubros', true)
                 this.insertarDatosApi('articulos/categorias', this.datos)
-                    .then(respuesta => respuesta.json())
                     .then(respuesta => {
                         
                         if(respuesta.id != 0){
@@ -86,3 +84,4 @@ export default {
     }
 }
 </script>
+

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+<div id="app">
   
  <!--  <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg"> -->
     
@@ -256,7 +256,6 @@ export default{
 
 methods: {   
     AbrirMenu() {
-      console.log('estamos-aca');
       const menu= document.querySelector('#side-menu');
 
       menu.classList.toggle("menu-expanded");
