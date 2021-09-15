@@ -18,8 +18,8 @@ export default {
         },
 
         obtenerDatos(ruta){
-            let direccion = "http://127.0.0.1:8000/api/" + ruta
-            console.log("obtener datos",direccion)
+            let direccion = "http://127.0.0.1:8000/api/" + ruta;
+            console.log("obtener datos",direccion);
              return fetch(direccion,
             {
                 method: 'GET',

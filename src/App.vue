@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+<div id="app">
   
  <!--  <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg"> -->
     
@@ -26,12 +26,17 @@
         <div id="menu-items">
             
             <div class="item"> 
-                <a href="articulos">
+                <router-link to="/articulos">
                   <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
-                  <div class="title"><span><router-link to="/articulos">Articulos</router-link></span> </div> 
-                <!--  <router-link to="/">Mesas</router-link> | -->
-                <!--  <router-link to="/articulos">Articulos</router-link> -->
-                </a>  
+                  <div class="title">Articulos </div> 
+                 </router-link>
+            </div>
+
+              <div class="item"> 
+                <router-link to="/articulos/categorias">
+                  <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
+                  <div class="title">Rubros </div> 
+                 </router-link>
             </div>
 
               <div class="item separator"> 
@@ -251,7 +256,6 @@ export default{
 
 methods: {   
     AbrirMenu() {
-      console.log('estamos-aca');
       const menu= document.querySelector('#side-menu');
 
       menu.classList.toggle("menu-expanded");
