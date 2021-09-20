@@ -24,6 +24,13 @@
 
         <!--ITEMS-->
         <div id="menu-items">
+           
+            <div class="item separator"> 
+              <router-link to="/">
+                <div class="icon"> <img src="..\src\assets\table.png" alt=""> </div>
+                <div class="title"><span>Mesas</span> </div> 
+              </router-link> 
+            </div>
             
             <div class="item"> 
                 <router-link to="/articulos">
@@ -35,16 +42,10 @@
               <div class="item"> 
                 <router-link to="/articulos/categorias">
                   <div class="icon"> <img src="..\src\assets\food-drink.png" alt=""> </div>
-                  <div class="title">Rubros </div> 
+                  <div class="title">Categorias de articulos </div> 
                  </router-link>
             </div>
 
-              <div class="item separator"> 
-                <a href="/">
-                  <div class="icon"> <img src="..\src\assets\table.png" alt=""> </div>
-                  <div class="title"><span><router-link to="/">Mesas</router-link></span> </div> 
-                </a>  
-            </div>
 
         </div>
       </div>
