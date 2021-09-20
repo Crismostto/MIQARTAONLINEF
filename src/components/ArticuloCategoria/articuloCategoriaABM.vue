@@ -3,11 +3,11 @@
         
         <div >
             <div>
-                <h2> Rubros</h2>
+                <h2>Categorias</h2>
             </div>
             <div>        
                 <label for="">tipo</label>
-                <input type="text" v-model="datos.tipo">
+                <input type="number" v-model="datos.tipo">
             </div>
         
             <div>
@@ -32,8 +32,8 @@ export default {
             datos:{
                 
                 id: 0,
-                nombre: '',
                 tipo:'',
+                nombre: '',
             }
         }
     },
