@@ -1,8 +1,8 @@
 <template>
-   <div>
+   <div class="about">
        
-       <h1>rubros</h1>
-       <button @click="abmrubros('agregar')" class="agregar">Agregar nuevo Rubro</button>
+       <h1>Categorias</h1>
+       <button @click="abmrubros('agregar')" class="agregar">Agregar nueva categoria</button>
         <articuloCategoriaABM 
        v-if="verabmrubro"
        :AbmAccion=tipoDeAccion
@@ -10,34 +10,28 @@
        @salirDeAbmRubros = mostrarAbmRubros($event)        
        ></articuloCategoriaABM>
        
-       <table>
-           
-           <tr>
-               <th>Id</th>
-               <th>tipo</th>
-               <th>nombre</th>
-               <th>Accion</th>
-           </tr>
-           <tr v-for="(rubros, index) in datos" :key="index">
-               <td>{{rubros.id}}</td>
-               <td>{{rubros.tipo}}</td>
-               <td>{{rubros.nombre}}</td>
-               <td><button @click="abmrubros('editar', rubros.id)" class="editar">Editar</button>               
-                <button @click="abmrubros('eliminar', rubros.id)" class="eliminar">Eliminar</button></td>
-                
-                           </tr>
-       </table>
-               
-       
-       <!-- <ul v-for="(rubros, index) in datos" :key="index">
-           <li>
-               {{rubros.nombre}}
-                <button @click="abmrubros('editar', rubros.id)">Editar</button>               
-                <button @click="abmrubros('eliminar', rubros.id)">Eliminar</button>
-                <button @click="abmrubros('consultar', rubros.id)">Consultar</button>
-           </li>
-           
-       </ul> -->
+       <table class="table table-striped table-bordered table-condensed" style="width:100%">           
+           <thead class="text-center">
+            <tr class="table-success">
+                <th>Id</th>
+                <th>tipo</th>
+                <th>nombre</th>
+                <th>Accion</th>
+            </tr>
+           </thead>
+
+           <tbody>
+            <tr v-for="(rubros, index) in datos" :key="index">
+                <td>{{rubros.id}}</td>
+                <td>{{rubros.tipo}}</td>
+                <td>{{rubros.nombre}}</td>
+                <td><button @click="abmrubros('editar', rubros.id)" class="editar btn btn-primary">Editar</button>               
+                    <button @click="abmrubros('eliminar', rubros.id)" class="eliminar btn btn-danger">Eliminar</button>
+                </td>
+                    
+            </tr>
+           </tbody> 
+       </table>          
     </div> 
 </template>
 
@@ -54,7 +48,6 @@ export default {
          verabmrubro:false,
          tipoDeAccion: '',
          llamadoId:0,   
-         
         }
     },
 
@@ -70,17 +63,25 @@ export default {
             this.verabmrubro = !this.verabmrubro
         },
         traerDatos(){
-            this.obtenerDatos('articulos/categorias')
+            this.ObtenerDatos('articulos/categorias')
                 .then(respuesta =>{
                     this.datos = respuesta
+                    console.log('traer datos')
                 })
         },
         mostrarAbmRubros(ver){
             this.verabmrubro = false
             if(ver == true){
                 this.traerDatos()
+                console.log ("mostrarAbmRubros")
             }
         }
     }
 }
 </script>
+
+<style scoped>
+.about{
+  text-align: center;
+}
+</style>
