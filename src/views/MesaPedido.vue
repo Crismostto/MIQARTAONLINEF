@@ -3,9 +3,9 @@
     <table>
       <tr>
         <th>pedido numero</th>
+        <th>articulo</th>
         <th>Cantidad</th>
         <th>precio</th>
-        <th>articulo</th>
       </tr>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
         
