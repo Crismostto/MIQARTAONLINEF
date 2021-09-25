@@ -21,41 +21,38 @@
                 <td><button @click="abmmesas('editar', mesas.id)" class="editar btn btn-primary">Editar</button>               
                     <button @click="abmmesas('eliminar', mesas.id)" class="eliminar btn btn-danger">Eliminar</button>
                 </td>
-                    
+              <mesaPedido></mesaPedido>      
             </tr>
            </tbody> 
-       </table>     
+       </table>    
   </div>
 </template>
 
 <script>
-import Web from '@/components/Api/Web.vue';
 
+// @ is an alias to /src
+import Web from "@/components/Api/Web.vue";
+import mesaPedido from "@/views/MesaPedido.vue"
 export default {
-  mixins:[Web],
-  name: 'MesaINFO',
-  
-  data(){
-    return{
-    datos:[]
-    }
+  mixins: [Web],
+  components:{mesaPedido},
+  data() {
+    return {
+      datos: [],
+    };
   },
-
-  created(){
-      this.traerDatos()
+  created() {
+    this.traerDatos();
   },
+  methods: {
+    traerDatos() {
+      this.obtenerDatos("mesas").then((respuesta) => {
+        this.datos = respuesta;
+      });
+    },
+  },
+};
 
-  methods:{
-    traerDatos(){
-       this.ObtenerDatos('mesas')
-                .then(respuesta =>{
-                    this.datos = respuesta
-                    console.log('traer datos')
-                })
-    }
-  }
-
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
