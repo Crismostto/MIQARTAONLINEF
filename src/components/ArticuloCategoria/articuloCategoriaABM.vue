@@ -3,7 +3,8 @@
     <form>
       <div>
         <div>
-          <h2>Ingresar nueva categoria</h2>
+          <hr>
+          <h3>Ingrese nueva categoria</h3>
         </div>
         <div class="form-group">
           <label for="">Numero Categoria</label>

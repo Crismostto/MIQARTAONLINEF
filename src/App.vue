@@ -51,7 +51,7 @@
           <div class="item">
             <router-link to="/articulos/categorias">
               <div class="icon">
-                <img src="..\src\assets\food-drink.png" alt="" />
+                <img src="..\src\assets\ladybug.png" alt="" />
               </div>
               <div class="title">Categorias</div>
             </router-link>
@@ -83,6 +83,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   padding: 10px;
+  padding-top: 0;
   margin: 0;
   margin-left: var(--width-collapsed);
 }

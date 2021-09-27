@@ -18,9 +18,10 @@
                 <td>{{mesas.id}}</td>
                 <td>{{mesas.estado}}</td>
                 <td>{{mesas.fechaApertura}}</td>
-                <td><button @click="abmmesas('editar', mesas.id)" class="editar btn btn-primary">Editar</button>               
+              <!--  <td><button @click="abmmesas('editar', mesas.id)" class="editar btn btn-primary">Editar</button>               
                     <button @click="abmmesas('eliminar', mesas.id)" class="eliminar btn btn-danger">Eliminar</button>
                 </td>
+              -->  
               <mesaPedido></mesaPedido>      
             </tr>
            </tbody> 
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     traerDatos() {
-      this.obtenerDatos("mesas").then((respuesta) => {
+      this.ObtenerDatos("mesas").then((respuesta) => {
         this.datos = respuesta;
       });
     },
