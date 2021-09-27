@@ -14,7 +14,7 @@
            </thead>
 
            <tbody>
-            <tr v-for="(mesas, index) in datos" :key="index">
+            <tr v-b-toggle.collapse-2 class="m-1" v-for="(mesas, index) in datos" :key="index">
                 <td>{{mesas.id}}</td>
                 <td>{{mesas.estado}}</td>
                 <td>{{mesas.fechaApertura}}</td>
@@ -22,7 +22,9 @@
                     <button @click="abmmesas('eliminar', mesas.id)" class="eliminar btn btn-danger">Eliminar</button>
                 </td>
               -->  
-              <mesaPedido v-show="false"></mesaPedido>      
+              <b-collapse id="collapse-2">
+                <mesaPedido></mesaPedido>      
+              </b-collapse>
             </tr>
            </tbody> 
        </table>    
