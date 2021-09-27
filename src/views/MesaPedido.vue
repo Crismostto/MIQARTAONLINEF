@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     traerDatos() {
-      this.obtenerDatos("pedidos").then((respuesta) => {
+      this.ObtenerDatos("pedidos").then((respuesta) => {
         this.datos = respuesta;
       });
     },

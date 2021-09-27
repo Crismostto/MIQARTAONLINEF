@@ -1,30 +1,31 @@
 <template>
-  <div class="formulario">
+  <div class="collapsed formulario">
     <form>
       <div class="form-group">
         <div>
-          <h2>articulos</h2>
+          <hr>
+          <h3>Ingrese nuevo articulo</h3>
         </div>
-        <div>
-          <label for="">nombre</label>
-          <input type="text" v-model="datos.nombre" />
+        <div class="form-group">
+          <label for="">Nombre: </label>
+          <input type="text" class="form-control" v-model="datos.nombre" />
         </div>
-        <div>
-          <label for="">precio</label>
-          <input type="text" v-model="datos.precio" /><br />
+        <div class="form-group">
+          <label for="">Precio: </label>
+          <input type="text" class="form-control" v-model="datos.precio" /><br />
         </div>
-        <div>
-          <label for="">descripcion</label>
-          <input type="text" v-model="datos.descripcion" /><br />
-        </div>
-
-        <div>
-          <label for="">categoria</label>
-          <input type="text" v-model="datos.ArticuloCategorias_id" />
+        <div class="form-group">
+          <label for="">Descripcion: </label>
+          <input type="text" class="form-control" v-model="datos.descripcion" /><br />
         </div>
 
-        <button @click="aceptar()">aceptar</button>
-        <button @click="cancelar()">cancelar</button>
+        <div class="form-group">
+          <label for="">Categoria: </label>
+          <input type="text" class="form-control" v-model="datos.ArticuloCategorias_id" />
+        </div>
+        <br>
+        <button @click="aceptar()" class="btn btn-outline-primary">Aceptar</button>
+        <button @click="cancelar()" class="btn btn-outline-danger">Cancelar</button>
       </div>
     </form>
   </div>
