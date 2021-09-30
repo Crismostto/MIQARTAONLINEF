@@ -10,9 +10,9 @@
       <tr v-for="(mesaPedido, index) in datos" :key="index">
         
           <td>{{mesaPedido.id}}</td>
-          <td>{{ mesaPedido.nombre }}</td>
-          <td>{{ mesaPedido.cantidad }}</td>
-          <td>{{ mesaPedido.precio }}</td>
+          <td>{{mesaPedido.nombre }}</td>
+          <td>{{mesaPedido.cantidad }}</td>
+          <td>{{mesaPedido.precio }}</td>
       
       </tr>
     </table>
@@ -27,7 +27,12 @@ export default {
   mixins: [Api],
   data() {
     return {
-      datos: [],
+      datos: [
+        {id:1,
+        nombre:"Cristian",
+        cantidad: 10,
+        precio: 1500,
+        }],
     };
   },
   created() {

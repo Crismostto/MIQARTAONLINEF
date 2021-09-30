@@ -1,9 +1,10 @@
 <template>
   <div class="mesas">
-      <div class=" header bg-light">
+      <div class=" header">
        <h1 id="h1">Estado de las mesas</h1>
       </div>
       <hr>
+      <div class="body">
       <table class="table table-striped table-bordered table-condensed" style="width:100%">           
            <thead class="text-center">
             <tr class="table-success">
@@ -22,12 +23,13 @@
                     <button @click="abmmesas('eliminar', mesas.id)" class="eliminar btn btn-danger">Eliminar</button>
                 </td>
               -->  
-              <b-collapse id="collapse-2">
-                <mesaPedido></mesaPedido>      
-              </b-collapse>
             </tr>
+              <b-collapse id="collapse-2">
+                <mesaPedido class="hijo"></mesaPedido>      
+              </b-collapse>
            </tbody> 
-       </table>    
+       </table>   
+    </div>  
   </div>
 </template>
 
@@ -60,15 +62,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.mesas{
-  text-align: center;
-}
 
 .header{
- height: 95px;
+  text-align: center;
 }
 
 #h1{
   padding-top: 20px;
 }
+
 </style>
