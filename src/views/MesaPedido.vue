@@ -1,15 +1,15 @@
 <template>
   <div>
-    <table>
+    <table class="table-success">
       <tr>
-        <th>pedido numero</th>
-        <th>articulo</th>
+        
+        <th>Articulo</th>
         <th>Cantidad</th>
-        <th>precio</th>
+        <th>Precio</th>
       </tr>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
         
-          <td>{{mesaPedido.id}}</td>
+
           <td>{{mesaPedido.nombre }}</td>
           <td>{{mesaPedido.cantidad }}</td>
           <td>{{mesaPedido.precio }}</td>
@@ -25,14 +25,10 @@ import Api from "@/components/Api/Api.vue";
 
 export default {
   mixins: [Api],
+  props:["id_Mesa"],
   data() {
     return {
-      datos: [
-        {id:1,
-        nombre:"Cristian",
-        cantidad: 10,
-        precio: 1500,
-        }],
+      datos: [],
     };
   },
   created() {
@@ -40,7 +36,7 @@ export default {
   },
   methods: {
     traerDatos() {
-      this.ObtenerDatos("pedidos").then((respuesta) => {
+      this.traerDatosPorId("pedidos/lista", this.id_Mesa).then((respuesta) => {
         this.datos = respuesta;
       });
     },
