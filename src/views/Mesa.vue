@@ -4,7 +4,7 @@
        <h1 id="h1">Estado de las mesas</h1>
       </div>
       <hr>
-      <div class="body">
+    <div class="body">
       <table class="table table-striped table-bordered table-condensed" style="width:100%">           
            <thead class="text-center">
             <tr class="table-success">
@@ -28,7 +28,26 @@
                 <mesaPedido class="hijo"></mesaPedido>      
               </b-collapse>
            </tbody> 
-       </table>   
+       </table> 
+
+        <!-- Prueba de tabla en Vue -->
+      <b-table  responsive bordered	fixed striped hover :items="datos" :fields="fields">   
+        <template #cell(Accion)="row">
+          <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+            {{ row.detailsShowing ? 'Ocultar' : 'Mostrar'}} Detalles
+          </b-button>
+        </template>
+
+        <template #row-details="row">
+          <b-card>
+            <b-row class="mb-2">
+               <mesaPedido class="hijo"></mesaPedido>
+            </b-row>
+
+            <b-button size="sm" @click="row.toggleDetails">Ocultar Detalles</b-button>
+          </b-card>
+       </template>
+      </b-table> 
     </div>  
   </div>
 </template>
@@ -43,6 +62,7 @@ export default {
   components:{mesaPedido},
   data() {
     return {
+      fields: [ { key:'id'} , { key: 'estado'},  { key: 'fechaApertura' },  { key: 'Accion', label: 'Accion' }],
       datos: [],
     };
   },

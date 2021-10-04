@@ -19,7 +19,7 @@ export default {
 
         ObtenerDatos(ruta){            
             let direccion = "http://127.0.0.1:8000/" + ruta
-            console.log("obtener datos",direccion)
+            console.log("obteniendo datos",direccion)
              return fetch(direccion,
             {
                 method: 'GET',
@@ -28,7 +28,9 @@ export default {
                 }
             })
             .then(respuesta =>{
-                return respuesta.json()
+                respuesta = respuesta.json()
+                console.log(respuesta)
+                return respuesta
             })
         },
         insertarDatosApi(ruta, agregarDatos){
