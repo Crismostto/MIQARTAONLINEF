@@ -80,10 +80,10 @@ export default {
   data() {
     return {
       fields: [
-        { key: "id" , label:"Mesa" },
-        { key: "estado" },
-        { key: "fechaApertura" },
-        { key: "Accion", label: "Accion" },
+        { key: "id" , label:"Mesa" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "estado" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "fechaApertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
       ],
       datos: [],
     };
@@ -114,4 +114,6 @@ export default {
 #h1 {
   padding-top: 20px;
 }
+
+
 </style>

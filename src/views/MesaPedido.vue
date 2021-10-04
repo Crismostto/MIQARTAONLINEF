@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table-success">
+    <table>
       <tr>
         
         <th>Articulo</th>
