@@ -6,10 +6,6 @@
           <hr>
           <h3>Ingrese nueva categoria</h3>
         </div>
-        <div class="form-group">
-          <label for="">Numero Categoria</label>
-          <input type="number" class="form-control" min="1" pattern="^[0-9]+" v-model="datos.tipo" />
-        </div>
 
         <div class="form-group">
           <label for="">Nombre</label>
@@ -33,7 +29,6 @@ export default {
     return {
       datos: {
         id: 0,
-        tipo: "",
         nombre: "",
       },
     };

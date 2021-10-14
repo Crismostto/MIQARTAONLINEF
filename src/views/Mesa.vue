@@ -5,39 +5,7 @@
     </div>
     <hr />
     <div class="body">
-      <table
-        class="table table-striped table-bordered table-condensed"
-        style="width: 100%"
-      >
-        <thead class="text-center">
-          <tr class="table-success">
-            <th>Mesa</th>
-            <th>Estado</th>
-            <th>Fecha Apertura</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
-            v-b-toggle.collapse-2
-            class="m-1"
-            v-for="(mesas, index) in datos"
-            :key="index"
-          >
-            <td>{{ mesas.id }}</td>
-            <td>{{ mesas.estado }}</td>
-            <td>{{ mesas.fechaApertura }}</td>
-            <!--  <td><button @click="abmmesas('editar', mesas.id)" class="editar btn btn-primary">Editar</button>               
-                    <button @click="abmmesas('eliminar', mesas.id)" class="eliminar btn btn-danger">Eliminar</button>
-                </td>
-              -->
-          </tr>
-          <b-collapse id="collapse-2">
-            <mesaPedido class="hijo"></mesaPedido>
-          </b-collapse>
-        </tbody>
-      </table>
-
+     
       <!-- Prueba de tabla en Vue -->
       <b-table
         responsive
@@ -57,7 +25,7 @@
         <template #row-details="row">
           <b-card>
             <b-row class="mb-2 hijo">
-              <mesaPedido :id_Mesa="row.index + 1"></mesaPedido>
+              <mesaPedido :id_Mesa="row.item.id"></mesaPedido>
             </b-row>
 
             <b-button size="sm" @click="row.toggleDetails"

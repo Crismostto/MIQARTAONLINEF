@@ -17,7 +17,6 @@
            <thead class="text-center">
             <tr class="table-success">
                 <th>Id</th>
-                <th>tipo</th>
                 <th>nombre</th>
                 <th>Accion</th>
             </tr>
@@ -26,7 +25,6 @@
            <tbody>
             <tr v-for="(rubros, index) in datos" :key="index">
                 <td>{{rubros.id}}</td>
-                <td>{{rubros.tipo}}</td>
                 <td>{{rubros.nombre}}</td>
                 <td><button @click="abmrubros('editar', rubros.id)" class="editar btn btn-primary">Editar</button>               
                     <button @click="abmrubros('eliminar', rubros.id)" class="eliminar btn btn-danger">Eliminar</button>
