@@ -1,30 +1,37 @@
 <template>
    <div class="about">
-       
-       <h1>rubros</h1>
-       <button @click="abmrubros('agregar')" class="agregar">Agregar nuevo Rubro</button>
+   <div class="bg-light"> 
+    <div v-show="!verabmrubro">
+        <h1>Categorias</h1>
+        <button @click="abmrubros('agregar')" class="agregar btn btn-success">Agregar nueva categoria</button>
+    </div>
         <articuloCategoriaABM 
        v-if="verabmrubro"
        :AbmAccion=tipoDeAccion
        :AbmId=llamadoId 
        @salirDeAbmRubros = mostrarAbmRubros($event)        
        ></articuloCategoriaABM>
-       
-       <table>           
-           <tr>
-               <th>Id</th>
-               <th>tipo</th>
-               <th>nombre</th>
-               <th>Accion</th>
-           </tr>
-           <tr v-for="(rubros, index) in datos" :key="index">
-               <td>{{rubros.id}}</td>
-               <td>{{rubros.tipo}}</td>
-               <td>{{rubros.nombre}}</td>
-               <td><button @click="abmrubros('editar', rubros.id)" class="editar">Editar</button>               
-                <button @click="abmrubros('eliminar', rubros.id)" class="eliminar">Eliminar</button></td>
-                
+    <hr>   
+   </div>
+       <table class="table table-striped table-bordered table-condensed" style="width:100%">           
+           <thead class="text-center">
+            <tr class="table-success">
+                <th>Id</th>
+                <th>nombre</th>
+                <th>Accion</th>
             </tr>
+           </thead>
+
+           <tbody>
+            <tr v-for="(rubros, index) in datos" :key="index">
+                <td>{{rubros.id}}</td>
+                <td>{{rubros.nombre}}</td>
+                <td><button @click="abmrubros('editar', rubros.id)" class="editar btn btn-primary">Editar</button>               
+                    <button @click="abmrubros('eliminar', rubros.id)" class="eliminar btn btn-danger">Eliminar</button>
+                </td>
+                    
+            </tr>
+           </tbody> 
        </table>          
     </div> 
 </template>
@@ -41,7 +48,8 @@ export default {
          datos:[],
          verabmrubro:false,
          tipoDeAccion: '',
-         llamadoId:0,   
+         llamadoId:0,  
+         
         }
     },
 
@@ -78,4 +86,5 @@ export default {
 .about{
   text-align: center;
 }
+
 </style>
