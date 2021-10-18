@@ -31,6 +31,9 @@
             <b-button size="sm" @click="row.toggleDetails"
               >Ocultar Detalles</b-button
             >
+            <b-button size="sm" variant="danger" class="ml-1"
+              >Cerrar Pedido</b-button
+            >
           </b-card>
         </template>
       </b-table>
@@ -82,6 +85,7 @@ export default {
 #h1 {
   padding-top: 20px;
 }
+
 
 
 </style>

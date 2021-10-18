@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     traerDatos() {
-      this.traerDatosPorId("pedidos/lista", this.id_Mesa).then((respuesta) => {
+      this.traerDatosPorId("pedidos/mesa", this.id_Mesa).then((respuesta) => {
         this.datos = respuesta;
       });
     },
