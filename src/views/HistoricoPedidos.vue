@@ -27,7 +27,7 @@ import Api from "@/components/Api/Api.vue";
 
 export default {
   mixins: [Api],
-  props:["id_Mesa"],
+  props:["id_Pedido"],
   data() {
     return {
       datos: [],
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     traerDatos() {
-      this.traerDatosPorId("pedidos/mesa", this.id_Mesa).then((respuesta) => {
+      this.traerDatosPorId("historico/pedidos", this.id_Pedido).then((respuesta) => {
         this.datos = respuesta;
       });
     },

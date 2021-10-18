@@ -78,6 +78,22 @@ export default {
             //  .catch(let error => {
             //      console.log("error");
             //  })
+        },
+
+           cierrePedido(ruta, agregarDatos){
+            let direccion ="http://127.0.0.1:8000/api/" +  ruta
+            console.log("cerrando pedido",direccion)
+             return fetch(direccion,
+            {
+                method: 'POST',
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(agregarDatos)
+            })
+            .then(respuesta =>{
+                return respuesta.json()
+            })
         }
     }
 }

@@ -56,6 +56,15 @@
               <div class="title">Categorias</div>
             </router-link>
           </div>
+
+           <div class="item">
+            <router-link to="/historico/mesas">
+              <div class="icon">
+                <img src="..\src\assets\historicos.png" alt="" />
+              </div>
+              <div class="title">Historicos</div>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
