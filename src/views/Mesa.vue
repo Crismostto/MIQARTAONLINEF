@@ -79,12 +79,9 @@ export default {
     cerrarPedido(id_Mesa){
       
       console.log(id_Mesa);
-      //  this.cierrePedido("cierre",id_Mesa).then((respuesta) => {
-      //    console.log(respuesta);         
-      //  });
-
-      //Se cambia el estado pero SOLO en el front (hay que actualizar la base de datos).
-      this.datos[id_Mesa - 1].estado = 1; 
+       this.cierrePedido("cierre",id_Mesa).then((respuesta) => {
+         console.log(respuesta);         
+       }); 
     }
   }
 }
@@ -105,6 +102,7 @@ export default {
 #h1 {
   padding-top: 20px;
 }
+
 
 
 </style>
