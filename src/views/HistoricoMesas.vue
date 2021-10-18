@@ -1,7 +1,7 @@
 <template>
   <div class="mesas">
     <div class="header">
-      <h1 id="h1">Estado de las mesas</h1>
+      <h1 id="h1">Historico de los pedidos</h1>
     </div>
     <hr />
     <div class="body">
@@ -15,7 +15,6 @@
         hover
         :items="datos"
         :fields="fields"
-        :tbody-tr-class="rowClass"
       >
         <template #cell(Accion)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
@@ -26,13 +25,12 @@
         <template #row-details="row">
           <b-card>
             <b-row class="mb-2 hijo">
-              <mesaPedido :id_Mesa="row.item.id"></mesaPedido>
+              <HistoricoPedidos :id_Pedido="row.item.id"></HistoricoPedidos>
             </b-row>
 
             <b-button size="sm" @click="row.toggleDetails"
               >Ocultar Detalles</b-button
             >
-            <b-button size="sm"  variant="danger" @click="cerrarPedido(row.item.id)">Cerrar pedido</b-button>
           </b-card>
         </template>
       </b-table>
@@ -42,17 +40,18 @@
 
 <script>
 // @ is an alias to /src
-import Web from "@/components/Api/Web.vue";
-import mesaPedido from "@/views/MesaPedido.vue";
+import Api from "@/components/Api/Api.vue";
+import HistoricoPedidos from "@/views/HistoricoPedidos.vue";
 export default {
-  mixins: [Web],
-  components: { mesaPedido },
+  mixins: [Api],
+  components: { HistoricoPedidos },
   data() {
     return {
       fields: [
-        { key: "id" , label:"Mesa" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "estado" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "fechaApertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "id" , label:"Id_Pedido" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "mesa_id" , label:"Mesa" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "fecha_apertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "fecha_cierre" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
       ],
       datos: [],
@@ -63,30 +62,12 @@ export default {
   },
   methods: {
     traerDatos() {
-      this.ObtenerDatos("mesas").then((respuesta) => {
+      this.ObtenerDatos("historico/mesas").then((respuesta) => {
         this.datos = respuesta;
       });
     },
-    
-    //Chequea el estado de las mesas y cambia el estilo de la fila segun el estado.
-    rowClass(item, type) {
-        if (!item || type !== 'row') return
-        if (item.estado === 1) return 'table-info'
-        if (item.estado === 2) return 'table-danger'
-      },
-    
-    //Metodo para cerrar los pedidos de las mesas.
-    cerrarPedido(id_Mesa){
-      
-      console.log(id_Mesa);
-       this.cierrePedido("cierre",id_Mesa).then((respuesta) => {
-         console.log(respuesta);         
-       }); 
-    }
-  }
-}
-
-
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -102,7 +83,6 @@ export default {
 #h1 {
   padding-top: 20px;
 }
-
 
 
 </style>
