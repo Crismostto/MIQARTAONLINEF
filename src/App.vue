@@ -1,7 +1,10 @@
 <template>
-  <div id="app">
+ <div id="app">
+  
+  <!--Vista de admin --> 
+  <div id="admin" v-if="admin">
     <!--  <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg"> -->
-
+   
     <div id="nav">
       <div id="side-menu" class="menu-collapsed">
         <!--HEADER-->
@@ -72,7 +75,16 @@
     <div class="components">
       <router-view />
     </div>
+ </div>  
+  
+  <!--Vista de usuario -->
+  <div id="usuario" v-if="admin==false">
+    
+    <router-link to="/usuario">User</router-link>
   </div>
+
+ </div>
+
 </template>
 
 <style>
@@ -274,6 +286,13 @@ body {
 
 <script>
 export default {
+  
+  data(){
+    return {
+       admin:true
+    };
+  },
+
   methods: {
     AbrirMenu() {
       const menu = document.querySelector("#side-menu");
