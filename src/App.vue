@@ -68,9 +68,19 @@
               <div class="title">Historicos</div>
             </router-link>
           </div>
+            <div class="item">
+            <router-link to="/pedidos">
+              <div class="icon">
+                <img src="..\src\assets\food-drink.png" alt="" />
+              </div>
+              <div class="title">pedidos</div>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
+
+
 
     <div class="components">
       <router-view />

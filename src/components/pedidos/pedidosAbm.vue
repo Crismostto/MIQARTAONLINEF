@@ -3,32 +3,32 @@
       <div class="form-group">
         <div>
           <hr>
-          <h3>Ingrese nuevo articulo</h3>
+          <h3>Ingrese nuevo pedido</h3>
         </div>
         <div class="form-group">
           <label for="">Articulo: </label>
           <select type="text" class="form-control" v-model="datos.articulo_id">
-            <option disabled selected>Selecciona una categoria</option>
-            <option v-for="(pedido , index) in pedidos" :key="index" :value="pedido.id">{{pedido.nombre}}</option>
+            <option disabled selected>Selecciona un Articulo</option>
+            <option v-for="(articulos , index) in articulos" :key="index" :value="articulos.id">{{articulos.nombre}}</option>
           </select>  
         </div>
 
         <div class="form-group">
           <label for="">Mesa: </label>
           <select type="text" class="form-control" v-model="datos.mesa_id">
-            <option disabled selected>Selecciona una categoria</option>
-            <option v-for="(pedido , index) in pedidos" :key="index" :value="pedido.id">{{pedido.nombre}}</option>
+            <option disabled selected>Selecciona una Mesa</option>
+            <option v-for="(mesa , index) in mesas" :key="index" :value="mesa.id">{{mesa.id}}</option>
           </select>  
         </div>
 
         <div class="form-group">
           <label for="">Cantidad: </label>
-          <input type="text" placeholder="Ingrese el nombre" class="form-control" v-model="datos.nombre" />
+          <input type="text" placeholder="Ingrese la cantidad" class="form-control" v-model="datos.cantidad" />
         </div>
 
         <div class="form-group">
           <label for="">Precio: </label>
-          <input type="text" placeholder="Ingrese el precio" class="form-control" v-model="datos.precio"/><br />
+          <input type="text" placeholder="Ingrese el precio" class="form-control"  v-model="datos.precio"/><br />
         </div>
 
         <br>
@@ -39,12 +39,13 @@
 </template>
 
 <script>
+import Api from "@/components/Api/Api.vue";
 import Web from "@/components/Api/Web.vue";
 
 export default {
-  name: "ArticulosABM",
+  name: "PedidoABM",
   props: ["AbmAccion", "AbmId"],
-  mixins: [Web],
+  mixins: [Api, Web],
 
   data() {
     return {
@@ -56,7 +57,9 @@ export default {
         mesa_id:0,
     },
 
-      pedidos:[],
+      articulos:[],
+      mesas:[],
+      
     };
   },
 
@@ -67,45 +70,53 @@ export default {
       });
     }
 
-    this.ObtenerDatos('articulos/categorias')
+    this.ObtenerDatos('articulos')
                 .then(respuesta =>{
-                    this.categorias = respuesta
-                    console.log('Se trajeron los datos de Categoria')
+                    this.articulos = respuesta
+                    console.log('Se trajeron los datos de articulos')
                 })
+
+    this.ObtenerDatos('mesas')
+                .then(respuesta =>{
+                    this.mesas = respuesta
+                    console.log('Se trajeron los datos de mesa')
+                })
+
+
   },
 
   methods: {
     aceptar() {
       if (this.AbmAccion == "agregar") {
-        this.insertarDatosApi("articulos", this.datos).then((respuesta) => {
+        this.insertarDatosApi("pedidos", this.datos).then((respuesta) => {
           if (respuesta.id != 0) {
             console.log("exito");
           } else {
             console.log("fracaso");
           }
-          this.$emit("salirDeAbmArticulos", true);
+          this.$emit("salirDePedidoCliente", true);
         });
       }
 
       if (this.AbmAccion == "editar") {
-        this.EditarDatosApi("articulos", this.AbmId, this.datos).then(
+        this.EditarDatosApi("pedidos", this.AbmId, this.datos).then(
           (respuesta) => {
-            this.$emit("salirDeAbmArticulos", true);
+            this.$emit("salirDePedidoCliente", true);
             this.datos = respuesta;
           }
         );
       }
 
       if (this.AbmAccion == "eliminar") {
-        this.EliminarDatosApi("articulos", this.AbmId).then((respuesta) => {
-          this.$emit("salirDeAbmArticulos", true);
+        this.EliminarDatosApi("pedidos", this.AbmId).then((respuesta) => {
+          this.$emit("salirDePedidoCliente", true);
           this.datos = respuesta;
         });
       }
     },
 
     cancelar() {
-      this.$emit("salirDeAbmArticulos", false);
+      this.$emit("salirDePedidoCliente", false);
     },
   },
 };
