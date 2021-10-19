@@ -1,6 +1,22 @@
 <template>
  <div id="app">
-  
+   <div id="vista" > 
+     <!--Seleccion de hacia la vista de usuario o vista de admin-->
+    <div class="globalLogin">
+      <div class="cajaLogin" v-if="useroradmin">
+        <div class="headerLogin"> 
+          <h5 id="titleLogin">Selccione el tipo de usuario</h5>
+        </div>
+        
+        <div class="bodyLogin">
+            <router-link to="/mesas"> <b-button class="btnLogin" v-if="useroradmin" @click="seleccionarVista('admin')"  variant="outline-light">Admin</b-button> </router-link>
+            <router-link to="/usuario">  <b-button class="btnLogin" v-if="useroradmin" @click="seleccionarVista('user')" variant="outline-light">Usuario</b-button></router-link>
+        </div>
+      
+      </div> 
+   </div> 
+ 
+ 
   <!--Vista de admin --> 
   <div id="admin" v-if="admin">
     <!--  <img alt="Restaurant logo" class="logo" src="..\src\assets\logo-restaurant.jpg"> -->
@@ -34,7 +50,7 @@
 
         <div id="menu-items">
           <div class="item separator">
-            <router-link to="/">
+            <router-link to="/mesas">
               <div class="icon">
                 <img src="..\src\assets\table.png" alt="" />
               </div>
@@ -78,14 +94,61 @@
  </div>  
   
   <!--Vista de usuario -->
-  <div id="usuario" v-if="admin==false">
-    
-    <router-link to="/usuario">User</router-link>
+  <div id="usuario" v-if="usuario">
+      <div class="components-usuario">
+       <router-view />
+       </div>
   </div>
-
  </div>
+</div>
 
 </template>
+
+<script>
+export default {
+  
+  data(){
+    return {
+       admin:false,
+       usuario:false,
+       useroradmin: true
+    };
+  },
+
+  methods: {
+    AbrirMenu() {
+      const menu = document.querySelector("#side-menu");
+
+      menu.classList.toggle("menu-expanded");
+      menu.classList.toggle("menu-collapsed");
+
+      document.querySelector("body").classList.toggle("body-expanded");
+    },
+
+    //Se selecciona la vista en la cual se va a ver el sistema , si desde usuario o si desde un admin.
+    seleccionarVista(tipo){
+    
+     if (tipo=="admin") {
+        this.useroradmin=false;
+        this.usuario= false;
+        this.admin = true; 
+      }
+      
+      if (tipo=="user") {
+        this.useroradmin=false;
+        this.admin=false;
+        this.usuario = true; 
+      }
+
+    }
+  },
+};
+</script> 
+
+
+
+
+
 
 <style>
 :root {
@@ -282,26 +345,46 @@ body {
 .menu-collapsed .item {
   width: 100px;
 }
+
+/* LOGIN */
+.cajaLogin{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 40px;
+  background: rgba(0,0,0,.8);
+  box-sizing:  border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.5);
+  border-radius: 10px;
+}
+
+.headerLogin {
+  background-color: rgba(207, 199, 199, 0.8);
+  border-radius: 50px;
+}
+
+.bodyLogin{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+
+.btnLogin{
+  margin:7.5px;
+}
+
+
+
+#titleLogin{
+  text-align: center;
+  color:rgb(3, 3, 3);
+  font-family: "Latin Modern Roman";
+  font-style: oblique;
+}
+
+ 
 </style>
 
-<script>
-export default {
-  
-  data(){
-    return {
-       admin:true
-    };
-  },
-
-  methods: {
-    AbrirMenu() {
-      const menu = document.querySelector("#side-menu");
-
-      menu.classList.toggle("menu-expanded");
-      menu.classList.toggle("menu-collapsed");
-
-      document.querySelector("body").classList.toggle("body-expanded");
-    },
-  },
-};
-</script> 
