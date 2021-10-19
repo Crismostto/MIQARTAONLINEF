@@ -15,6 +15,8 @@
         hover
         :items="datos"
         :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
       >
         <template #cell(Accion)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
@@ -34,6 +36,14 @@
           </b-card>
         </template>
       </b-table>
+    
+      <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
     </div>
   </div>
 </template>
@@ -55,11 +65,18 @@ export default {
         { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
       ],
       datos: [],
+      currentPage: 1,
+      perPage:10,
     };
   },
   created() {
     this.traerDatos();
   },
+  computed: {
+      rows() {
+        return this.datos.length
+      }
+    },
   methods: {
     traerDatos() {
       this.ObtenerDatos("historico/mesas").then((respuesta) => {
