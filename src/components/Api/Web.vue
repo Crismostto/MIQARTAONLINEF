@@ -89,7 +89,7 @@ export default {
                 headers:{
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify(agregarDatos)
+                body: JSON.stringify({ id: agregarDatos})
             })
             .then(respuesta =>{
                 return respuesta.json()
