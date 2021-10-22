@@ -32,9 +32,10 @@
         </div>
 
         <br>
-        <button @click="aceptar()" class="btn btn-outline-primary">Aceptar</button>
+        <button @click="aceptar()" class="btn btn-outline-primary">Agregar al carrito</button>
         <button @click="cancelar()" class="btn btn-outline-danger">Cancelar</button>
       </div>
+
   </div>
 </template>
 
@@ -50,15 +51,16 @@ export default {
   data() {
     return {
       datos: {
-        id: 0,
+        //objeto 1 
+    
         cantidad:0,
         precio:0,
-        Articulo_id:0,
+        articulo_id:0,
         mesa_id:0,
     },
-
       articulos:[],
       mesas:[],
+      
       
     };
   },
@@ -86,9 +88,10 @@ export default {
   },
 
   methods: {
+
     aceptar() {
       if (this.AbmAccion == "agregar") {
-        this.insertarDatosApi("pedidos", this.datos).then((respuesta) => {
+        this.insertarPedidos("pedidos", this.datos).then((respuesta) => {
           if (respuesta.id != 0) {
             console.log("exito");
           } else {
@@ -118,6 +121,7 @@ export default {
     cancelar() {
       this.$emit("salirDePedidoCliente", false);
     },
+
   },
 };
 </script>

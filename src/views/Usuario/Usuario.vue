@@ -32,7 +32,12 @@
         style="max-width: 20rem;"
         class="mb-2"
       >
-      <b-button href="#" variant="primary">Habilitar mesa</b-button>
+      
+      <router-link to="/usuario/pedido">
+      <b-button v-if="mesa.estado == 0" variant="success">mesa disponible</b-button>
+      </router-link>
+
+      <b-button v-if="mesa.estado == 1 ||mesa.estado == 2" variant="danger">Mesa ocupada</b-button>
       </b-card>
       
    </b-card-group> 

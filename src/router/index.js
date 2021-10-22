@@ -4,6 +4,7 @@ import Mesa from '../views/Mesa.vue'
 import Articulo from '../views/Articulo.vue'
 import HistoricoMesas from '../views/HistoricoMesas.vue'
 import Usuario from '../views/Usuario/Usuario.vue'
+import UsuarioPedido from '../views/Usuario/UsuarioPedido.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,16 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: Usuario
+
+    
+  },
+  {
+    path: '/usuario/pedido',
+    name: 'Usuarios',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: UsuarioPedido
 
     
   }
