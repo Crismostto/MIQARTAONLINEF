@@ -5,7 +5,6 @@
         
         <th>Articulo</th>
         <th>Cantidad</th>
-        <th>Precio</th>
         <th>Total</th>
       </tr>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
@@ -13,7 +12,6 @@
 
           <td>{{mesaPedido.nombre }}</td>
           <td>{{mesaPedido.cantidad }}</td>
-          <td>{{mesaPedido.precio }}</td>
           <td>{{mesaPedido.Total }}</td>
       
       </tr>

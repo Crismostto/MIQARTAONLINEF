@@ -84,13 +84,14 @@
               <div class="title">Historicos</div>
             </router-link>
           </div>
-            <div class="item">
-            <router-link to="/pedidos">
+
+           <div class="item">
+             <a id="desconectar" href="http://localhost:8080/">
               <div class="icon">
-                <img src="..\src\assets\food-drink.png" alt="" />
+                <img src="..\src\assets\desconectar.png" alt="" />
               </div>
-              <div class="title">pedidos</div>
-            </router-link>
+              <div class="title">Desconectar</div>
+             </a>  
           </div>
         </div>
       </div>
