@@ -88,7 +88,7 @@ export default {
   methods: {
     aceptar() {
       if (this.AbmAccion == "agregar") {
-        this.insertarDatosApi("pedidos", this.datos).then((respuesta) => {
+        this.insertarPedidos("pedidos", this.datos).then((respuesta) => {
           if (respuesta.id != 0) {
             console.log("exito");
           } else {
