@@ -60,10 +60,9 @@ export default {
             .then(respuesta =>{
                 return respuesta.json()
             })
-        }
+        },
         
-        
-        ,EditarDatosApi(ruta, id, agregarDatos){
+        EditarDatosApi(ruta, id, agregarDatos){
             let direccion ="http://127.0.0.1:8000/api/" + ruta+ "/" +id
             console.log("editar datos api",direccion)
              return fetch(direccion,
