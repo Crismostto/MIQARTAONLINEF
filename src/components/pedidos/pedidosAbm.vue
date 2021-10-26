@@ -1,65 +1,76 @@
 <template>
   <div class="collapsed formulario">
-      <div class="form-group">
-        <div>
-          <hr>
-          <h3>Ingrese nuevo pedido</h3>
-        </div>
-        <div class="form-group">
-          <label for="">Articulo: </label>
-          <select type="text" class="form-control" v-model="datos.articulo_id">
-            <option disabled selected>Selecciona un Articulo</option>
-            <option v-for="(articulos , index) in articulos" :key="index" :value="articulos.id">{{articulos.nombre}}</option>
-          </select>  
-        </div>
-
-        <div class="form-group">
-          <label for="">Mesa: </label>
-          <select type="text" class="form-control" v-model="datos.mesa_id">
-            <option disabled selected>Selecciona una Mesa</option>
-            <option v-for="(mesa , index) in mesas" :key="index" :value="mesa.id">{{mesa.id}}</option>
-          </select>  
-        </div>
-
-        <div class="form-group">
-          <label for="">Cantidad: </label>
-          <input type="text" placeholder="Ingrese la cantidad" class="form-control" v-model="datos.cantidad" />
-        </div>
-
-        <div class="form-group">
-          <label for="">Precio: </label>
-          <input type="text" placeholder="Ingrese el precio" class="form-control"  v-model="datos.precio"/><br />
-        </div>
-
-        <br>
-        <button @click="aceptar()" class="btn btn-outline-primary">Aceptar</button>
-        <button @click="cancelar()" class="btn btn-outline-danger">Cancelar</button>
+    <div class="form-group">
+      <div>
+        <hr />
+        <h3>Realizar pedido de la mesa {{ AbmMesa }}</h3>
       </div>
+      <div class="form-group">
+        <label for="">Articulo: </label>
+        <select @change="precioArticulo" type="text" class="form-control" v-model="datos.articulo_id">
+          <option disabled selected>Selecciona un Articulo</option>
+          <option
+            v-for="(articulos, index) in articulos"
+            :key="index"
+            :value="articulos.id"
+          >
+            {{ articulos.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="">Mesa: </label>
+        <input disabled type="number" class="form-control" v-model="datos.mesa_id"/>
+      </div>
+
+      <div class="form-group">
+        <label for="">Cantidad: </label>
+        <input
+          type="number"
+          placeholder="Ingrese la cantidad"
+          class="form-control"
+          min="1"
+          max="50"
+          v-model="datos.cantidad"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="">Precio individual: </label>
+        <input disabled type="number" class="form-control" v-model="this.datos.precio"/>  
+        <br />
+      </div>
+
+      <br />
+      <button @click="aceptar()" class="btn btn-outline-primary">
+        Agregar al carrito
+      </button>
+      <button @click="cancelar()" class="btn btn-outline-danger">
+        Cancelar
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import Api from "@/components/Api/Api.vue";
-import Web from "@/components/Api/Web.vue";
+import User from "@/components/Api/User.vue";
 
 export default {
   name: "PedidoABM",
-  props: ["AbmAccion", "AbmId"],
-  mixins: [Api, Web],
+  props: ["AbmAccion", "AbmId", "AbmMesa"],
+  mixins: [User],
 
   data() {
     return {
       datos: {
-        id: 0,
-        cantidad:0,
-        precio:0,
-        Articulo_id:0,
-        mesa_id:0,
-    },
-
-      articulos:[],
-      mesas:[],
-      
+        cantidad: 0,
+        precio: 0,
+        articulo_id: 0,
+        mesa_id: this.AbmMesa,
+      },
+      articulos: [],
+      mesas: [],
     };
   },
 
@@ -70,19 +81,15 @@ export default {
       });
     }
 
-    this.ObtenerDatos('articulos')
-                .then(respuesta =>{
-                    this.articulos = respuesta
-                    console.log('Se trajeron los datos de articulos')
-                })
+    this.ObtenerDatos("articulos").then((respuesta) => {
+      this.articulos = respuesta;
+      console.log("Se trajeron los datos de articulos");
+    });
 
-    this.ObtenerDatos('mesas')
-                .then(respuesta =>{
-                    this.mesas = respuesta
-                    console.log('Se trajeron los datos de mesa')
-                })
-
-
+    this.ObtenerDatos("mesas").then((respuesta) => {
+      this.mesas = respuesta;
+      console.log("Se trajeron los datos de mesa");
+    });
   },
 
   methods: {
@@ -118,7 +125,53 @@ export default {
     cancelar() {
       this.$emit("salirDePedidoCliente", false);
     },
+
+
+    precioArticulo(){
+      this.traerDatosPorId('articulos', this.datos.articulo_id)
+      .then(res=>{ this.datos.precio = res.precio})
+    }
   },
+
+  watch: {
+    datos: {
+      deep: true,
+      handler: (valor) => {
+        if (valor.cantidad < 0) {
+          alert("no se puede ingresar valores menores a 0");
+          valor.cantidad = 1;
+        }
+
+        if (valor.cantidad > 50) {
+          alert("no se puede ingresar valores mayores a 50");
+          valor.cantidad = 1;
+        }
+      
+      },
+    },
+  },
+
+  computed: {
+      // precioArticulo: function(){
+      //  let bandera=false;
+      //  let i=1;
+      //  //Se recorre el array de articulos y se vincula con el  articulo_id que esta dentro de datos.
+      //  while(bandera != true & i < this.articulos.length ){
+      //      if(this.datos.articulo_id == this.articulos[i].id){
+      //          bandera= true;
+      //        } else {
+      //          i+= 1
+      //          bandera=false;
+      //        }
+            
+      //   }
+      //    return 50;     
+
+      
+    }
 };
 </script>
+
+<style>
+</style>
 

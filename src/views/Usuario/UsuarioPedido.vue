@@ -1,6 +1,26 @@
 
-<template>
+<template>  
   <div class="about">
+  <!-- NAV-BAR SECCION -->
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">MiQartaOnline</b-navbar-brand>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+
+        <b-nav-item-dropdown right>
+          <!-- Using 'button-content' slot -->
+          <template #button-content>
+            <em>Mesa {{mesa_id}}</em>
+          </template>
+          <b-dropdown-item href="http://localhost:8080/">Desconectar</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+
+  <!-- Seccion donde invocamos los pedidos -->
     <div class="bg-light">
       <div v-show="!verPedidoCliente">
         <h1>Pedidos</h1>
@@ -15,60 +35,38 @@
         v-if="verPedidoCliente"
         :AbmAccion="tipoDeAccion"
         :AbmId="llamadoId"
+        :AbmMesa="mesa_id"
         @salirDePedidoCliente="mostrarPedidoCliente($event)"
       />
       <hr />
     </div>
-    <table
-      class="table table-striped table-bordered table-condensed"
-      style="width: 100%"
-    >
-      <thead class="text-center">
-        <tr class="table-success">
-          <th>Id</th>
-          <th>mesa</th>
-          <th>Articulo</th>
-          <th>cantidad</th>
-          <th>precio</th>
-          <th>Accion</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr v-for="(pedidos, index) in datos" :key="index">
-          <td>{{ pedidos.id }}</td>
-          <td>{{ pedidos.mesa_id }}</td>
-          <td>{{ pedidos.articulo_id }}</td>
-          <td>{{ pedidos.cantidad }}</td>
-          <td>{{ pedidos.precio }}</td>
-          <td>
-            <button v-on:click="PedidoClienteABM('editar', pedidos.id)" class="editar btn btn-primary"> 
-              Editar
-            </button>
-            <button v-on:click="PedidoClienteABM('eliminar', pedidos.id)" class="eliminar btn btn-danger">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    
+    <!-- Tabla mostrando los pedidos enviados -->
+     <b-table striped hover :fields="fields" :items="this.datos"></b-table>
   </div>
 </template>
 
 <script>
 import pedidosAbm from "@/components/pedidos/pedidosAbm.vue";
-import Web from "@/components/Api/Api.vue";
+import User from "@/components/Api/User.vue";
 export default {
-  mixins: [Web],
+  mixins: [User],
   components: {
     pedidosAbm
   },
   data() {
     return {
+       fields: [
+        { key: "nombre" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "cantidad" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "precio", label: "Precio" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "Total", label: "Total" , thStyle: { backgroundColor: 'rgb(209,231,221)'}}
+      ],
       datos: [],
       verPedidoCliente: false,
       tipoDeAccion: "",
       llamadoId: 0,
+      mesa_id: this.$route.params.id
     };
   },
   created() {
@@ -82,7 +80,7 @@ export default {
       
     },
     traerDatos() {
-      this.ObtenerDatos("pedidos").then((res) => {
+      this.traerDatosPorIdApi("pedidos/mesa", this.mesa_id).then((res) => {
         this.datos = res;
         console.log(res);
       });

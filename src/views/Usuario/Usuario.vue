@@ -10,9 +10,6 @@
 
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>Mesa 1</em>
-          </template>
           <b-dropdown-item href=" http://localhost:8080/">Desconectar</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -25,7 +22,7 @@
    <b-card-group v-for="(mesa,index) in mesas" :key="index"> 
       <b-card
         :title="'Mesa ' + mesa.id"
-        img-src="https://elcirculo.com.ar/wp-content/uploads/2020/08/Anuncios.jpeg"
+        :img-src="mesa.urlQr"
         img-alt="Image"
         img-top
         tag="article"
@@ -33,8 +30,11 @@
         class="mb-2"
       >
       
-      <router-link to="/usuario/pedido"> <b-button v-if="mesa.estado == 0" variant="success">Disponible</b-button> </router-link>
-      <b-button v-if="mesa.estado == 1 || mesa.estado ==  2" variant="danger">Ocupada</b-button>      
+      <router-link  :to="{name: 'UsuariosPedidos', params: {id: mesa.id}}">
+      <b-button v-if="mesa.estado == 0" variant="success">Disponible</b-button>
+      </router-link>
+
+      <b-button v-if="mesa.estado == 1 ||mesa.estado == 2" variant="danger">Ocupada</b-button>
       </b-card>
       
    </b-card-group> 
@@ -66,7 +66,15 @@ export default {
         this.mesas = respuesta;
       });
     },
-  }
+
+    // Funcion que iria dentro del button de las mesas (dentro del router-link)
+    //OcuparMesa(id){
+      //  console.log('este es el id' + id)
+      //this.cambiarEstadoMesa("mesas", id).then((respuesta) => {
+      //  return respuesta;
+      //})
+    }
+  
 }
 </script>
 

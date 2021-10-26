@@ -45,7 +45,24 @@ export default {
             .then(respuesta =>{
                 return respuesta.json()
             })
-        },EditarDatosApi(ruta, id, agregarDatos){
+        },
+            insertarPedidos(ruta, agregarDatos){
+            let direccion ="http://127.0.0.1:8000/api/" +  ruta
+            console.log("agregando pedidos",direccion)
+             return fetch(direccion,
+            {
+                method: 'POST',
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(agregarDatos)
+            })
+            .then(respuesta =>{
+                return respuesta.json()
+            })
+        },
+        
+        EditarDatosApi(ruta, id, agregarDatos){
             let direccion ="http://127.0.0.1:8000/api/" + ruta+ "/" +id
             console.log("editar datos api",direccion)
              return fetch(direccion,
