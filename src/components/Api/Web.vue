@@ -94,7 +94,25 @@ export default {
             .then(respuesta =>{
                 return respuesta.json()
             })
+        },
+
+        cambiarEstadoMesa(ruta, id, flag){
+            let direccion= "http://127.0.0.1:8000/" + ruta +  "/" + id;
+            console.log("Cambiando el estado de mesa a ocupada", direccion)
+            return fetch(direccion,
+            {
+                method: 'PATCH',
+                headers:{
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({ idm: id , habilitar: flag})
+            })
+            .then(respuesta =>{
+                return respuesta.json()
+            })
+
         }
+
     }
 }
 </script>
