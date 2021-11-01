@@ -31,7 +31,7 @@
       >
       
       <router-link  :to="{name: 'UsuariosPedidos', params: {id: mesa.id}}">
-      <b-button v-if="mesa.estado == 0" variant="success">Disponible</b-button>
+      <b-button @click="OcuparMesa(mesa.id)" v-if="mesa.estado == 0" variant="success">Disponible</b-button>
       </router-link>
 
       <b-button v-if="mesa.estado == 1 ||mesa.estado == 2" variant="danger">Ocupada</b-button>
@@ -68,12 +68,13 @@ export default {
     },
 
     // Funcion que iria dentro del button de las mesas (dentro del router-link)
-    //OcuparMesa(id){
-      //  console.log('este es el id' + id)
-      //this.cambiarEstadoMesa("mesas", id).then((respuesta) => {
-      //  return respuesta;
-      //})
+    OcuparMesa(id){
+      console.log(id)
+      this.cambiarEstadoMesa("mesas", id).then((respuesta) => {
+        return respuesta;
+      })
     }
+  }
   
 }
 </script>
