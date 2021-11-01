@@ -39,7 +39,7 @@
         </template>
 
         <template  #cell(Total)="row">
-          <p v-if="row.item.estado ==2">$ {{calcularPrecioTotal}}</p>
+          <p v-if="row.item.estado ==2">$  {{row.item.totalMesa}} </p>
         </template>
 
       </b-table>
@@ -72,6 +72,7 @@ export default {
   methods: {
     traerDatos() {
       this.ObtenerDatos("mesas").then((respuesta) => {
+       
         this.datos = respuesta;
       });
     },

@@ -1,18 +1,22 @@
 <template>
   <div>
-    <table>
+    <table class="table table-bordered ">
+      <thead class="thead-dark">
       <tr>
         
         <th>Articulo</th>
         <th>Cantidad</th>
-        <th>Total</th>
+        <th>Precio Unitario</th>
+        <th>SubTotal</th>
       </tr>
+      </thead>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
         
 
           <td>{{mesaPedido.nombre }}</td>
           <td>{{mesaPedido.cantidad }}</td>
-          <td>{{mesaPedido.Total }}</td>
+          <td>{{mesaPedido.precio }}</td>
+          <td>{{mesaPedido.subTotal }}</td>
       
       </tr>
     </table>
