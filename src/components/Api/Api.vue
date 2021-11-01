@@ -93,7 +93,25 @@ export default {
             //  .catch(let error => {
             //      console.log("error");
             //  })
-        }
+        },
+        obtenerFecha(ruta,fechaUno,fechaDos){
+            let direccion = "http://127.0.0.1:8000/api/" + ruta ;
+            
+             return fetch(direccion,
+            {
+                method: 'GET',
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    f1:fechaUno,
+                    f2:fechaDos,
+                })
+            })
+            .then(respuesta =>{
+                return respuesta.json()
+            })
+        },
     }
 }
 </script>

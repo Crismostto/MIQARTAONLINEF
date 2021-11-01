@@ -4,6 +4,12 @@
       <h1 id="h1">Historico de los pedidos</h1>
     </div>
     <hr />
+        <div>
+        <input type="datetime-local" v-model="fechaUno">
+        <input type="datetime-local" v-model="fechaDos">
+        <button @click="fechasComparacion"> consultar </button>
+    </div>
+    <hr />
     <div class="body">
      
       <!-- Prueba de tabla en Vue -->
@@ -65,6 +71,8 @@ export default {
         { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
       ],
       datos: [],
+      fechaUno:0,
+      fechaDos:0,
       currentPage: 1,
       perPage:10,
     };
@@ -80,6 +88,12 @@ export default {
   methods: {
     traerDatos() {
       this.ObtenerDatos("historico/mesas").then((respuesta) => {
+        this.datos = respuesta;
+      });
+    },
+    
+    fechasComparacion(){
+            this.obtenerFecha("historico/mesas/comparacionFecha",this.fechaUno,this.fechaDos).then((respuesta) => {
         this.datos = respuesta;
       });
     },
