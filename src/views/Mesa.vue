@@ -17,10 +17,12 @@
         :fields="fields"
         :tbody-tr-class="rowClass"
       >
-        <template #cell(Accion)="row">
-          <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+        <template  #cell(Accion)="row">
+          <b-button v-if="row.item.estado == 2" size="sm" @click="row.toggleDetails" class="mr-2">
             {{ row.detailsShowing ? "Ocultar" : "Mostrar" }} Detalles
           </b-button>
+
+          <b-button  v-if="row.item.estado == 2" size="sm" variant="success" @click="habilitarMesa(row.item.id)" >Habilitar mesa</b-button>
         </template>
 
         <template #row-details="row">
@@ -35,6 +37,11 @@
             <b-button size="sm"  variant="danger" @click="cerrarPedido(row.item.id)">Cerrar pedido</b-button>
           </b-card>
         </template>
+
+        <template  #cell(Total)="row">
+          <p v-if="row.item.estado ==2">$ {{calcularPrecioTotal}}</p>
+        </template>
+
       </b-table>
     </div>
   </div>
@@ -51,11 +58,12 @@ export default {
     return {
       fields: [
         { key: "id" , label:"Mesa" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "estado" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "fechaApertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        { key: "Total", label: "Total gastado" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
       ],
       datos: [],
+      estadoLibre:false,
     };
   },
   created() {
@@ -82,8 +90,16 @@ export default {
        this.cierrePedido("cierre",id_Mesa).then((respuesta) => {
          console.log(respuesta);         
        }); 
+    },
+
+    habilitarMesa(id_Mesa){
+     console.log(id_Mesa)
+     let habilitar= true;
+      this.cambiarEstadoMesa("mesas",id_Mesa, habilitar).then((respuesta) => {
+         console.log(respuesta);         
+       }); 
     }
-  }
+  },
 }
 
 

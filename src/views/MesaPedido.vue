@@ -16,6 +16,9 @@
       
       </tr>
     </table>
+   <div>
+     <p>Total $ {{calcularPrecioTotal}} </p>
+   </div>
   </div>
 </template>
 
@@ -41,5 +44,19 @@ export default {
       });
     },
   },
+
+   computed:
+  {
+    calcularPrecioTotal: function(){    
+      let precioTotal=0
+      //Foreach al array de datos y se calcula el total dentro del front.
+      Array.from(this.datos).forEach( dato=>
+        precioTotal=  precioTotal + dato.subTotal
+      )
+      
+      return precioTotal
+
+    }
+  }
 };
 </script>

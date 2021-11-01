@@ -99,23 +99,7 @@ export default {
             })
         },
 
-        cambiarEstadoMesa(ruta, id){
-            let direccion= "http://127.0.0.1:8000/" + ruta +  "/" + id;
-            console.log("Cambiando el estado de mesa a ocupada", direccion)
-            return fetch(direccion,
-            {
-                method: 'PATCH',
-                 headers:{
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(id)
-            })
-            .then(respuesta =>{
-                return respuesta.json()
-            })
-
-        }
-
+       
     }
 }
 </script>

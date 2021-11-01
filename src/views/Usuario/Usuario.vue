@@ -69,13 +69,13 @@ export default {
 
     // Funcion que iria dentro del button de las mesas (dentro del router-link)
     OcuparMesa(id){
-      console.log(id)
-      this.cambiarEstadoMesa("mesas", id).then((respuesta) => {
-        return respuesta;
+      console.log('este es el id' + id)
+      let habilitar= false;
+      this.cambiarEstadoMesa("mesas", id, habilitar).then((respuesta) => {
+       return respuesta;
       })
     }
   }
-  
 }
 </script>
 

@@ -42,7 +42,13 @@
     </div>
     
     <!-- Tabla mostrando los pedidos enviados -->
+    <b-container fluid="sm Tables">
      <b-table striped hover :fields="fields" :items="this.datos"></b-table>
+     <hr>
+     <div v-if="mostrarTotal" class="sumaTotal">
+       <p class="Total">Total $ {{calcularPrecioTotal}}</p>
+     </div> 
+    </b-container> 
   </div>
 </template>
 
@@ -60,13 +66,15 @@ export default {
         { key: "nombre" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "cantidad" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "precio", label: "Precio" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "Total", label: "Total" , thStyle: { backgroundColor: 'rgb(209,231,221)'}}
+        { key: "subTotal", label: "Sub-Total" , thStyle: { backgroundColor: 'rgb(209,231,221)'}}
       ],
       datos: [],
       verPedidoCliente: false,
       tipoDeAccion: "",
       llamadoId: 0,
-      mesa_id: this.$route.params.id
+      mesa_id: this.$route.params.id,
+      precioTotal: 0,
+      mostrarTotal:true,
     };
   },
   created() {
@@ -93,6 +101,20 @@ export default {
       }
     },
   },
+
+  computed:
+  {
+    calcularPrecioTotal: function(){    
+      let precioTotal=0
+      //Foreach al array de datos y se calcula el total dentro del front.
+      Array.from(this.datos).forEach( dato=>
+        precioTotal=  precioTotal + dato.subTotal
+      )
+      
+      return precioTotal
+
+    }
+  }
 };
 </script>
 
@@ -100,6 +122,27 @@ export default {
 .about {
   text-align: center;
 }
+
+.Tables{
+  display: flex;
+  flex-direction: column;
+}
+
+.sumaTotal{
+  flex-direction: column-reverse;
+}
+.Total{
+  float: right;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #dc3545;
+  margin-right: 5em;
+  text-shadow: grey 1px 1px 1px;
+
+}
+
+
 /*.ListaCentrada{
   margin: 0
 }*/
