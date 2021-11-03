@@ -4,6 +4,13 @@
       <h1 id="h1">Historico de los pedidos</h1>
     </div>
     <hr />
+        <div>
+        <input type="datetime-local" v-model="fechaUno">
+        <input type="datetime-local" v-model="fechaDos">
+        <button @click="filtrarHistoricos"> filtrar </button>
+        <button @click="todosLosHistoricos"> All </button>
+    </div>
+    <hr />
     <div class="body">
      
       <!-- Prueba de tabla en Vue -->
@@ -13,7 +20,7 @@
         fixed
         striped
         hover
-        :items="datos"
+        :items="fecha"
         :fields="fields"
         :per-page="perPage"
         :current-page="currentPage"
@@ -58,15 +65,22 @@ export default {
   data() {
     return {
       fields: [
-        { key: "id" , label:"Id_Pedido" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+                { key: "id" , label:"Id_Pedido" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "mesa_id" , label:"Mesa" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "fecha_apertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "fecha_cierre" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+
+        
       ],
       datos: [],
+      
+      fechaUno:0,
+      fecha:[],
+      fechaDos:0,
       currentPage: 1,
       perPage:10,
+      a:0,
     };
   },
   created() {
@@ -83,6 +97,16 @@ export default {
         this.datos = respuesta;
       });
     },
+    
+    
+    filtrarHistoricos(){
+    
+    this.fecha= this.datos.filter(n => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos);
+    
+    },
+    todosLosHistoricos(){
+      this.fecha = this.datos;
+    }
   },
 };
 </script>
@@ -100,6 +124,5 @@ export default {
 #h1 {
   padding-top: 20px;
 }
-
 
 </style>
