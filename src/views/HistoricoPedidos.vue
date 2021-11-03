@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <table>
       <tr>
         
@@ -42,6 +43,7 @@ export default {
         this.datos = respuesta;
       });
     },
+
   },
 };
 </script>
