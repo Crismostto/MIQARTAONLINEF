@@ -39,7 +39,7 @@
         </template>
 
         <template  #cell(Total)="row">
-          <p v-if="row.item.estado ==2">$  {{row.item.totalMesa}} </p>
+          <p v-if="row.item.estado ==2">$ {{row.item.totalMesa}}</p>
         </template>
 
       </b-table>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <table class="table table-bordered ">
-      <thead class="thead-dark">
+    <table class="table table-striped">
+      <thead>
       <tr>
         
         <th>Articulo</th>
@@ -15,7 +15,6 @@
 
           <td>{{mesaPedido.nombre }}</td>
           <td>{{mesaPedido.cantidad }}</td>
-          <td>{{mesaPedido.precio }}</td>
           <td>{{mesaPedido.subTotal }}</td>
       
       </tr>
