@@ -66,9 +66,11 @@ export default {
       estadoLibre:false,
     };
   },
+  
   created() {
-    this.traerDatos();
+   this.traerDatos();
   },
+
   methods: {
     traerDatos() {
       this.ObtenerDatos("mesas").then((respuesta) => {
@@ -91,6 +93,7 @@ export default {
        this.cierrePedido("cierre",id_Mesa).then((respuesta) => {
          console.log(respuesta);         
        }); 
+       this.traerDatos()
     },
 
     habilitarMesa(id_Mesa){
@@ -98,8 +101,8 @@ export default {
      let habilitar= true;
       this.cambiarEstadoMesa("mesas",id_Mesa, habilitar).then((respuesta) => {
          console.log(respuesta);         
-       }); 
-    }
+       });  
+    }, 
   },
 }
 
