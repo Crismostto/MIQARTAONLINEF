@@ -1,23 +1,27 @@
 <template>
   <div>
-    <table>
+    <table class="table table-striped">
+      <thead>
       <tr>
-        
         <th>Articulo</th>
         <th>Cantidad</th>
-        <th>Precio</th>
+        <th>Precio Unitario</th>
         <th>Sub-Total</th>
       </tr>
+      </thead>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
         
 
           <td>{{mesaPedido.nombre }}</td>
           <td>{{mesaPedido.cantidad }}</td>
           <td>{{mesaPedido.precio }}</td>
-          <td>{{mesaPedido.Total }}</td>
+          <td>{{mesaPedido.subTotal }}</td>
       
       </tr>
     </table>
+    <div>
+     <p>Total $ {{calcularPrecioTotal}} </p>
+   </div>
   </div>
 </template>
 
@@ -43,5 +47,19 @@ export default {
       });
     },
   },
+
+     computed:
+  {
+    calcularPrecioTotal: function(){    
+      let precioTotal=0
+      //Foreach al array de datos y se calcula el total dentro del front.
+      Array.from(this.datos).forEach( dato=>
+        precioTotal=  precioTotal + dato.subTotal
+      )
+      this.$emit('tengo_total', precioTotal);
+      return precioTotal
+
+    }
+  }
 };
 </script>
