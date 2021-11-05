@@ -8,8 +8,8 @@
         
         <div class="filtro-fechas">
           <h6>Filtrar por fechas</h6>
-          <input type="datetime-local" v-model="fechaUno">
-          <input type="datetime-local" v-model="fechaDos">
+          <input type="date" v-model="fechaUno">
+          <input type="date" v-model="fechaDos">
           <hr>
           <button type="button" class="btn btn-outline-info btn-sm" @click="filtrarHistoricos"> Filtrar por fecha</button>
           <button type="button" class="btn btn-outline-info btn-sm" @click="todosLosHistoricos"> Mostrar todos </button>
@@ -37,6 +37,11 @@
         :per-page="perPage"
         :current-page="currentPage"
       >
+       
+         <template #cell(fecha_cierre)="row">
+            {{transformarfecha(row.item.fecha_cierre)}}  
+        </template>
+
         <template #cell(Accion)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
             {{ row.detailsShowing ? "Ocultar" : "Mostrar" }} Detalles
@@ -79,7 +84,7 @@ export default {
       fields: [
         { key: "id" , label:"Id_Pedido" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "mesa_id" , label:"Mesa" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "fecha_apertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
+        // { key: "fecha_apertura" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "fecha_cierre" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "Accion", label: "Accion" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
 
@@ -112,7 +117,7 @@ export default {
     
     
     filtrarHistoricos(){
-    
+ 
     this.fecha= this.datos.filter(n => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos);
     
     },
@@ -122,7 +127,15 @@ export default {
 
      filtrarHistoricosPorMesa(){
      this.fecha= this.datos.filter(n => n.mesa_id == this.numMesa);
-  },
+    },
+
+    transformarfecha(fecha){
+      fecha = new Date(fecha);
+      var options = { year: 'numeric', month: 'long', day: 'numeric'};
+      fecha= fecha.toLocaleDateString('es-AR', options);
+     
+      return fecha; 
+    }
   },
 
  

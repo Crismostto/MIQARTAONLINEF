@@ -6,7 +6,8 @@
         
         <th>Articulo</th>
         <th>Cantidad</th>
-        <th>Total</th>
+        <th>Precio Unitario</th>
+        <th>SubTotal</th>
       </tr>
       </thead>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
@@ -55,7 +56,7 @@ export default {
       Array.from(this.datos).forEach( dato=>
         precioTotal=  precioTotal + dato.subTotal
       )
-      
+      this.$emit('tengo_total', precioTotal);
       return precioTotal
 
     }

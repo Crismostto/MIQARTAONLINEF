@@ -1,3 +1,4 @@
+
 <template>  
   <div class="about">
   <!-- NAV-BAR SECCION -->
@@ -54,14 +55,11 @@
 <script>
 import pedidosAbm from "@/components/pedidos/pedidosAbm.vue";
 import User from "@/components/Api/User.vue";
-
 export default {
   mixins: [User],
-
   components: {
     pedidosAbm
   },
-
   data() {
     return {
        fields: [
@@ -70,7 +68,6 @@ export default {
         { key: "precio", label: "Precio" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
         { key: "subTotal", label: "Sub-Total" , thStyle: { backgroundColor: 'rgb(209,231,221)'}}
       ],
-
       datos: [],
       verPedidoCliente: false,
       tipoDeAccion: "",
@@ -80,11 +77,9 @@ export default {
       mostrarTotal:true,
     };
   },
-
   created() {
     this.traerDatos();
   },
-
   methods: {
     PedidoClienteABM(accion, id = 0) {
       this.tipoDeAccion = accion;
@@ -92,14 +87,12 @@ export default {
       this.verPedidoCliente = !this.verPedidoCliente;
       
     },
-
     traerDatos() {
       this.traerDatosPorIdApi("pedidos/mesa", this.mesa_id).then((res) => {
         this.datos = res;
         console.log(res);
       });
     },
-
     mostrarPedidoCliente(ver) {
       this.verPedidoCliente = false;
       if (ver == true) {

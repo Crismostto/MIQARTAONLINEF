@@ -6,7 +6,7 @@
         <th>Articulo</th>
         <th>Cantidad</th>
         <th>Precio</th>
-        <th>Total</th>
+        <th>Sub-Total</th>
       </tr>
       <tr v-for="(mesaPedido, index) in datos" :key="index">
         
