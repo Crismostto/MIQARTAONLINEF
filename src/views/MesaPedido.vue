@@ -56,7 +56,7 @@ export default {
       Array.from(this.datos).forEach( dato=>
         precioTotal=  precioTotal + dato.subTotal
       )
-      
+      this.$emit('tengo_total', precioTotal);
       return precioTotal
 
     }

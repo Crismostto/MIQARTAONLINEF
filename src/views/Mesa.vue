@@ -28,13 +28,13 @@
         <template #row-details="row">
           <b-card>
             <b-row class="mb-2 hijo">
-              <mesaPedido :id_Mesa="row.item.id"></mesaPedido>
+              <mesaPedido v-on:tengo_total="ObtenerTotal" :id_Mesa="row.item.id"></mesaPedido>
             </b-row>
 
             <b-button size="sm" @click="row.toggleDetails"
               >Ocultar Detalles</b-button
             >
-            <b-button size="sm"  variant="danger" @click="cerrarPedido(row.item.id)">Cerrar pedido</b-button>
+            <b-button v-if="Total !== 0 " size="sm" variant="danger" @click="cerrarPedido(row.item.id)">Cerrar pedido</b-button>
           </b-card>
         </template>
 
@@ -64,6 +64,7 @@ export default {
       ],
       datos: [],
       estadoLibre:false,
+      Total:0,
     };
   },
   
@@ -100,9 +101,13 @@ export default {
      console.log(id_Mesa)
      let habilitar= true;
       this.cambiarEstadoMesa("mesas",id_Mesa, habilitar).then((respuesta) => {
-         console.log(respuesta);         
+      console.log(respuesta);         
        });  
     }, 
+
+    ObtenerTotal(precioTotal){
+      this.Total = precioTotal;
+    },
   },
 }
 
