@@ -1,26 +1,27 @@
 
-<template>  
+<template>
   <div class="about">
-  <!-- NAV-BAR SECCION -->
-  <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">MiQartaOnline</b-navbar-brand>
+    <!-- NAV-BAR SECCION -->
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">MiQartaOnline</b-navbar-brand>
 
-    <b-collapse id="nav-collapse" is-nav>
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+      <b-collapse id="nav-collapse" is-nav>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>Mesa {{ mesa_id }}</em>
+            </template>
+            <b-dropdown-item href="http://localhost:8080/"
+              >Desconectar</b-dropdown-item
+            >
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
 
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>Mesa {{mesa_id}}</em>
-          </template>
-          <b-dropdown-item href="http://localhost:8080/">Desconectar</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
-
-  <!-- Seccion donde invocamos los pedidos -->
+    <!-- Seccion donde invocamos los pedidos -->
     <div class="bg-light">
       <div v-show="!verPedidoCliente">
         <h1>Pedidos</h1>
@@ -40,15 +41,16 @@
       />
       <hr />
     </div>
-    
+
     <!-- Tabla mostrando los pedidos enviados -->
     <b-container fluid="sm Tables">
-     <b-table striped hover :fields="fields" :items="this.datos"></b-table>
-     <hr>
-     <div v-if="mostrarTotal" class="sumaTotal">
-       <p class="Total">Total $ {{calcularPrecioTotal}}</p>
-     </div> 
-    </b-container> 
+      <b-table striped hover :fields="fields" :items="this.datos"></b-table>
+      <hr />
+      <div v-if="mostrarTotal" class="sumaTotal">
+        <button @click="pedirCuenta" class="btn btn-outline-danger">Pedir la cuenta</button>
+        <p class="Total">Total $ {{ calcularPrecioTotal }}</p>
+      </div>
+    </b-container>
   </div>
 </template>
 
@@ -58,15 +60,23 @@ import User from "@/components/Api/User.vue";
 export default {
   mixins: [User],
   components: {
-    pedidosAbm
+    pedidosAbm,
   },
   data() {
     return {
-       fields: [
-        { key: "nombre" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "cantidad" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "precio", label: "Precio" , thStyle: { backgroundColor: 'rgb(209,231,221)'}},
-        { key: "subTotal", label: "Sub-Total" , thStyle: { backgroundColor: 'rgb(209,231,221)'}}
+      fields: [
+        { key: "nombre", thStyle: { backgroundColor: "rgb(209,231,221)" } },
+        { key: "cantidad", thStyle: { backgroundColor: "rgb(209,231,221)" } },
+        {
+          key: "precio",
+          label: "Precio",
+          thStyle: { backgroundColor: "rgb(209,231,221)" },
+        },
+        {
+          key: "subTotal",
+          label: "Sub-Total",
+          thStyle: { backgroundColor: "rgb(209,231,221)" },
+        },
       ],
       datos: [],
       verPedidoCliente: false,
@@ -74,7 +84,7 @@ export default {
       llamadoId: 0,
       mesa_id: this.$route.params.id,
       precioTotal: 0,
-      mostrarTotal:true,
+      mostrarTotal: true,
     };
   },
   created() {
@@ -85,7 +95,6 @@ export default {
       this.tipoDeAccion = accion;
       this.llamadoId = id;
       this.verPedidoCliente = !this.verPedidoCliente;
-      
     },
     traerDatos() {
       this.traerDatosPorIdApi("pedidos/mesa", this.mesa_id).then((res) => {
@@ -100,21 +109,38 @@ export default {
         console.log("mostrarAbmPedidos");
       }
     },
+
+    pedirCuenta(){
+   
+    const Swal = require('sweetalert2');
+    console.log(this.mesa_id)
+    let habilitar= 3;
+    this.cambiarEstadoMesa("mesas",this.mesa_id, habilitar).then((respuesta) => {
+     console.log(respuesta);  
+     if (respuesta.cod == 200){
+       Swal.fire({
+            title: 'La cuenta ha sido enviada!',
+            text: 'Espere hasta que el mozo se acerque a cobrarle',
+            icon: 'success',
+            showConfirmButton: false,  
+        })
+     }       
+    })  
+    }
+
   },
 
-  computed:
-  {
-    calcularPrecioTotal: function(){    
-      let precioTotal=0
+  computed: {
+    calcularPrecioTotal: function () {
+      let precioTotal = 0;
       //Foreach al array de datos y se calcula el total dentro del front.
-      Array.from(this.datos).forEach( dato=>
-        precioTotal=  precioTotal + dato.subTotal
-      )
-      
-      return precioTotal
+      Array.from(this.datos).forEach(
+        (dato) => (precioTotal = precioTotal + dato.subTotal)
+      );
 
-    }
-  }
+      return precioTotal;
+    },
+  },
 };
 </script>
 
@@ -123,25 +149,24 @@ export default {
   text-align: center;
 }
 
-.Tables{
+.Tables {
   display: flex;
   flex-direction: column;
 }
 
-.sumaTotal{
+.sumaTotal {
   flex-direction: column-reverse;
 }
-.Total{
+.Total {
   float: right;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #dc3545;
   margin-right: 5em;
   text-shadow: grey 1px 1px 1px;
-
 }
-
 
 /*.ListaCentrada{
   margin: 0

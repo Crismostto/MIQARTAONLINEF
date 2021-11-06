@@ -70,7 +70,7 @@ export default {
     // Funcion que iria dentro del button de las mesas (dentro del router-link)
     OcuparMesa(id){
       console.log('este es el id' + id)
-      let habilitar= false;
+      let habilitar= 2;
       this.cambiarEstadoMesa("mesas", id, habilitar).then((respuesta) => {
        return respuesta;
       })
