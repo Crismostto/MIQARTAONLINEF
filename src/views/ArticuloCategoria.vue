@@ -1,7 +1,7 @@
 <template>
    <div class="about">
    <div class="bg-light"> 
-    <div v-show="!verabmrubro">
+    <div class="header" v-show="!verabmrubro">
         <h1>Categorias</h1>
         <button @click="abmrubros('agregar')" class="agregar btn btn-success">Agregar nueva categoria</button>
     </div>
@@ -87,4 +87,13 @@ export default {
   text-align: center;
 }
 
+.header{
+  background-color: #201f1f;
+  padding-bottom: 10px;
+  border: 2px solid;
+}
+
+h1{
+    color: white;
+}
 </style>

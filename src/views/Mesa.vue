@@ -122,10 +122,15 @@ export default {
 }
 .header {
   text-align: center;
+  background-color: #201f1f;
+  padding-bottom: 20px;
+  border: 2px solid;
 }
+
 
 #h1 {
   padding-top: 20px;
+  color: white;
 }
 
 

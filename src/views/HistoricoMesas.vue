@@ -245,7 +245,7 @@ export default {
   text-align: center;
   background-color: #201f1f;
   padding-bottom: 20px;
-  border:solid;
+  border: 2px solid;
 }
 
 #h1 {
