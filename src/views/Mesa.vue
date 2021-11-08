@@ -2,6 +2,7 @@
   <div class="mesas">
     <div class="header">
       <h1 id="h1">Estado de las mesas</h1>
+      <button @click="refrescarMesas" class="btn btn-primary">Refrescar mesas</button>
     </div>
     <hr />
     <div class="body">
@@ -107,6 +108,7 @@ export default {
     this.traerDatos();
   },
 
+
   methods: {
     traerDatos() {
       this.ObtenerDatos("mesas").then((respuesta) => {
@@ -164,6 +166,11 @@ export default {
     ObtenerTotal(precioTotal) {
       this.Total = precioTotal;
     },
+    
+    refrescarMesas(){
+      this.traerDatos();
+    }
+    
   },
 };
 </script>
@@ -179,6 +186,10 @@ export default {
   background-color: #201f1f;
   padding-bottom: 20px;
   border: 2px solid;
+}
+
+.header button{
+  color: white;
 }
 
 #h1 {

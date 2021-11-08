@@ -10,8 +10,11 @@
 
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
-          <b-dropdown-item href=" http://localhost:8080/">Desconectar</b-dropdown-item>
+          <b-dropdown-item href=" http://localhost:8080">Desconectar</b-dropdown-item>
         </b-nav-item-dropdown>
+
+        <b-button @click="refrescarMesas" class="btn btn-primary btn-refresh">Refrescar Disponibilidad</b-button>
+              
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -35,6 +38,8 @@
       </router-link>
 
       <b-button v-if="mesa.estado == 1 ||mesa.estado == 2" variant="danger">Ocupada</b-button>
+      
+      <b-button v-if="mesa.estado == 3" variant="warning">Esperando la cuenta</b-button>
       </b-card>
       
    </b-card-group> 
@@ -74,6 +79,10 @@ export default {
       this.cambiarEstadoMesa("mesas", id, habilitar).then((respuesta) => {
        return respuesta;
       })
+    },
+
+    refrescarMesas(){
+      this.traerDatos();
     }
   }
 }
@@ -83,5 +92,11 @@ export default {
 .mesas{
   display:flex; 
   flex-wrap: wrap;
+}
+
+.btn-refresh{
+  background-color: white;
+  color:black;
+  border: 1px solid;
 }
 </style>

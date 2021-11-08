@@ -43,17 +43,17 @@
 
       <div class="filtro-calculo">
         <h6>Calcular ingresos</h6>
-        <hr />
-        <b-button
+        <!-- <hr /> -->
+        <!-- <b-button
           v-b-modal.modal-1
           variant="outline-primary"
           class="btn  btn-sm"
           @click="MostrarIngresoHistorico"
           >Ingreso historico</b-button
-        >
-        <b-modal id="modal-1" title="Ingresos Historicos">
+        > -->
+        <!-- <b-modal id="modal-1" title="Ingresos Historicos">
           <p class="my-4">El ingreso historico es de: ${{ingresoHistorico}}</p>
-        </b-modal>
+        </b-modal> -->
 
         <hr />
         <b-button
