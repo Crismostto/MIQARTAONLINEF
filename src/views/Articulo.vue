@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="bg-light">
-      <div v-show="!verabmarticulos">
+      <div class="header" v-show="!verabmarticulos">
         <h1>Articulos</h1>
         <button
           v-on:click="ABMARTICULOS('agregar')"
@@ -108,6 +108,15 @@ export default {
   text-align: center;
 }
 
+.header{
+  background-color: #201f1f;
+  padding-bottom: 10px;
+  border: 2px solid;
+}
+
+h1{
+  color:white;
+}
 /*.ListaCentrada{
   margin: 0
 }*/

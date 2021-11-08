@@ -15,6 +15,7 @@
 
           <td>{{mesaPedido.nombre }}</td>
           <td>{{mesaPedido.cantidad }}</td>
+          <td>{{mesaPedido.precio }}</td>
           <td>{{mesaPedido.subTotal }}</td>
       
       </tr>
@@ -43,6 +44,7 @@ export default {
   methods: {
     traerDatos() {
       this.traerDatosPorId("pedidos/mesa", this.id_Mesa).then((respuesta) => {
+        console.log(respuesta);
         this.datos = respuesta;
       });
     },
