@@ -47,7 +47,8 @@
       <b-table striped hover :fields="fields" :items="this.datos"></b-table>
       <hr />
       <div v-if="mostrarTotal" class="sumaTotal">
-        <button @click="pedirCuenta" class="btn btn-outline-danger">Pedir la cuenta</button>
+       <a href="http://localhost:8080"> <button v-if="calcularPrecioTotal == 0 || salir == true" class="btn btn-outline-danger">Salir</button> </a>
+        <button v-if="calcularPrecioTotal != 0 && salir==false" @click="pedirCuenta" class="btn btn-outline-danger">Pedir la cuenta</button>
         <p class="Total">Total $ {{ calcularPrecioTotal }}</p>
       </div>
     </b-container>
@@ -85,6 +86,7 @@ export default {
       mesa_id: this.$route.params.id,
       precioTotal: 0,
       mostrarTotal: true,
+      salir:false,
     };
   },
   created() {
@@ -124,6 +126,7 @@ export default {
             icon: 'success',
             showConfirmButton: false,  
         })
+       this.salir= true; 
      }       
     })  
     }
