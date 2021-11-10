@@ -96,14 +96,32 @@ export default {
         },
 
         FiltrajeMesa(ruta, id){
-             let direccion ="http://127.0.0.1:8000/api/" + ruta + "/" + id
+            let direccion ="http://127.0.0.1:8000/api/" + ruta + "/" + id
             console.log("obteniendo datos de filtrado de mesa en: ",direccion);
              return fetch(direccion,
             {
+               
                 method: 'GET',
                 headers:{
                     'Content-type': 'application/json'
                 }
+            })
+            .then(respuesta =>{
+                return respuesta.json()
+            })
+        },
+
+        FiltrajeFecha(ruta, fechauno , fechados){
+            let direccion ="http://127.0.0.1:8000/api/" + ruta + "/" + fechauno + "/" + fechados 
+            console.log("obteniendo datos de filtrado de mesa en: ",direccion);
+             return fetch(direccion,
+            {
+
+                method: 'GET',
+                headers:{
+                    'Content-type': 'application/json'
+                },
+
             })
             .then(respuesta =>{
                 return respuesta.json()

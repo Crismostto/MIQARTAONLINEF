@@ -100,7 +100,7 @@
         </template>
       </b-table>
       <nav>
-        <ul class="pagination">
+        <ul v-if="filtrof==false" class="pagination">
           <li class="page-item" v-if="paginate.current_page > 1">
             <a
               class="page-link"
@@ -271,9 +271,22 @@ export default {
     //--------------------------------------- Seccion de filtro de fechas ------------------------------------//
 
     filtrarHistoricos() {
-      this.fecha = this.datos.filter(
-        (n) => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos
-      );
+       this.FiltrajeFecha("historico/mesas/filtro/fecha", this.fechaUno , this.fechaDos).then((respuesta) => {
+        console.log("el filtraje de fecha es: " + respuesta.arrayFiltradoFecha);
+        this.datos = respuesta;
+        this.fecha = respuesta.arrayFiltradoFecha;
+        this.ingresoFiltrado= respuesta.totalFiltroFecha;
+
+        this.sinfiltro = false;
+        this.filtrom = false;
+        this.filtrof = true;
+
+
+      //Respuesta vieja de filtrado con todos los datos.
+      // this.fecha = this.datos.filter(
+      // (n) => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos
+      // );
+       });
     },
 
     filtrarHistoricosPorMesa() {
