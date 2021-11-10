@@ -43,32 +43,19 @@
 
       <div class="filtro-calculo">
         <h6>Calcular ingresos</h6>
-        <!-- <hr /> -->
-        <!-- <b-button
-          v-b-modal.modal-1
-          variant="outline-primary"
-          class="btn  btn-sm"
-          @click="MostrarIngresoHistorico"
-          >Ingreso historico</b-button
-        > -->
-        <!-- <b-modal id="modal-1" title="Ingresos Historicos">
-          <p class="my-4">El ingreso historico es de: ${{ingresoHistorico}}</p>
-        </b-modal> -->
-
         <hr />
         <b-button
           v-b-modal.modal-2
-          variant="outline-primary"
-          class="btn  btn-sm"
-          @click="MostrarIngresoFiltrado"
+          variant="primary"
+          class="btn btn-sm"
+          
         >
           Ingresos por filtrado (Fecha o Mesa)
         </b-button>
 
-         <b-modal id="modal-2" title="Ingresos generados a partir del filtrado">
-          <p class="my-4">El ingreso es de: ${{ingresoFiltrado}}</p>
+        <b-modal id="modal-2" title="Ingresos generados a partir del filtrado">
+          <p class="my-4">El ingreso es de: ${{ ingresoFiltrado }}</p>
         </b-modal>
-
       </div>
     </div>
     <hr />
@@ -114,13 +101,52 @@
           <p>$ {{ row.item.totalMesa }}</p>
         </template>
       </b-table>
+      <nav>
+        <ul v-if="filtrof==false" class="pagination">
+          <li class="page-item" v-if="paginate.current_page > 1">
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="changePage(paginate.current_page - 1)"
+            >
+              <span>Atras</span>
+            </a>
+          </li>
 
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
-      ></b-pagination>
+          <li
+            class="page-item"
+            v-for="page in pagesNumber"
+            :key="page"
+            v-bind:class="[page == isActived ? 'active' : '']"
+          >
+            <a class="page-link" @click.prevent="changePage(page)">
+              {{ page }}
+            </a>
+          </li>
+
+          <li
+            class="page-item"
+            v-if="paginate.current_page < paginate.last_page"
+          >
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="changePage(paginate.current_page + 1)"
+            >
+              <span>Siguiente</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Paginador desde el front para fechas -->
+    
+    <b-pagination v-if="filtrof==true"
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
     </div>
   </div>
 </template>
@@ -161,45 +187,136 @@ export default {
           thStyle: { backgroundColor: "rgb(209,231,221)" },
         },
       ],
+
       datos: [],
+      fecha: [],
 
       fechaUno: 0,
-      fecha: [],
       fechaDos: 0,
-      currentPage: 1,
-      perPage: 10,
+
+      paginate: {
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0,
+      },
+
       numMesa: 0,
       Total: 0,
-      ingresoHistorico:0,
-      ingresoFiltrado:0,
+      ingresoFiltrado: 0,
+
+      filtrom:false,
+      sinfiltro:false,
+      filtrof:false,
+
+      perPage: 5,
+      currentPage: 1,
     };
   },
+
   created() {
-    this.traerDatos();
+    this.traerDatos(1);
   },
-  computed: {
-    rows() {
-      return this.datos.length;
-    },
-  },
+
   methods: {
-    traerDatos() {
-      this.ObtenerDatos("historico/mesas").then((respuesta) => {
+    //-------------------------------------- Seccion de traer datos y paginacion -------------------------//
+    traerDatos(page) {
+      console.log("historico/mesas?=page" + page);
+      this.ObtenerDatos("historico/mesas?page=" + page).then((respuesta) => {
         this.datos = respuesta;
+        this.fecha = respuesta.tasks;
+        this.paginate = this.datos.paginate;
+        this.sinfiltro = true;
       });
     },
 
-    filtrarHistoricos() {
-      this.fecha = this.datos.filter(
-        (n) => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos
-      );
-    },
     todosLosHistoricos() {
-      this.fecha = this.datos;
+      this.traerDatos(1);
+      this.fecha = this.datos.tasks;
+      this.paginate = this.datos.paginate;
+      this.sinfiltro = true;
+      this.filtrom = false;
+      this.filtrof = false;
+      this.ingresoFiltrado = 0;
+    },
+
+    changePage: function (page) {
+      this.paginate.current_page = page;
+      if (this.sinfiltro == true && this.filtrom== false && this.filtrof == false ){
+      this.traerDatos(page);
+      }else if (this.filtrom== true && this.sinfiltro== false  && this.filtrof== false){
+        this.FiltrajeMesa("historico/mesas/filtro/mesa", this.numMesa + "?page=" + page).then((respuesta) => {
+        console.log("el filtraje de mesa es: " + respuesta);
+        this.datos = respuesta;
+        this.fecha = respuesta.tasks;
+        this.ingresoFiltrado= respuesta.totalMesa;
+        this.paginate = this.datos.paginate;
+
+        this.sinfiltro = false;
+        this.filtrom = true;
+        this.filtrof = false;
+      });
+      }
+    },
+
+    //-------------------------------------------------@end---------------------------------------------------//
+
+    //-------------------------------------- Seccion de ingresos --------------------------------------------//
+
+    ObtenerTotal(precioTotal) {
+      this.Total = precioTotal;
+    },
+
+    // MostrarIngresoFiltrado() {
+    //   let ingresoFiltrado = 0;
+    //   if (this.fecha.length != 0) {
+    //     this.fecha.forEach((e) => {
+    //       ingresoFiltrado = ingresoFiltrado + e.totalMesa;
+    //       this.ingresoFiltrado = ingresoFiltrado;
+    //     });
+    //   } else {
+    //     this.ingresoFiltrado = 0;
+    //   }
+    //},
+
+    //------------------------------------------------@end----------------------------------------------------//
+
+    //--------------------------------------- Seccion de filtro de fechas ------------------------------------//
+
+    filtrarHistoricos() {
+       this.FiltrajeFecha("historico/mesas/filtro/fecha", this.fechaUno , this.fechaDos).then((respuesta) => {
+        console.log("el filtraje de fecha es: " + respuesta.arrayFiltradoFecha);
+        this.datos = respuesta;
+        this.fecha = respuesta.arrayFiltradoFecha;
+        this.ingresoFiltrado= respuesta.totalFiltroFecha;
+
+        this.sinfiltro = false;
+        this.filtrom = false;
+        this.filtrof = true;
+
+
+      //Respuesta vieja de filtrado con todos los datos.
+      // this.fecha = this.datos.filter(
+      // (n) => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos
+      // );
+       });
     },
 
     filtrarHistoricosPorMesa() {
-      this.fecha = this.datos.filter((n) => n.mesa_id == this.numMesa);
+      this.FiltrajeMesa("historico/mesas/filtro/mesa", this.numMesa).then((respuesta) => {
+        console.log("el filtraje de mesa es: " + respuesta);
+        this.datos = respuesta;
+        this.fecha = respuesta.tasks;
+        this.ingresoFiltrado= respuesta.totalMesa;
+        this.paginate = this.datos.paginate;
+
+        this.sinfiltro = false;
+        this.filtrom = true;
+        this.filtrof = false;
+      });
+      // this.fecha = this.datos.filter((n) => n.mesa_id == this.numMesa);
     },
 
     transformarfecha(fecha) {
@@ -210,27 +327,45 @@ export default {
       return fecha;
     },
 
-    ObtenerTotal(precioTotal) {
-      this.Total = precioTotal;
+    //------------------------------------------------@end----------------------------------------------------//
+  },
+
+  computed: {
+    // Calculador de filas desde paginador front.
+      rows() {
+        return this.fecha.length
+      },
+    
+    //Propiedad para alumbrar el numero de la paginas actual.
+    isActived: function () {
+      return this.paginate.current_page;
     },
 
-    MostrarIngresoHistorico() {
-      let ingresoHistorico = 0;
-      this.datos.forEach((e) => {
-        ingresoHistorico = ingresoHistorico + e.totalMesa;
-        this.ingresoHistorico = ingresoHistorico;
-      });
-    },
+    //Propiedad para calcular los elementos que van a aparecer en pantalla.
+    pagesNumber: function () {
+      // Controlamos si o no , nos aparezcan un numero determinado de paginas.
+      if (!this.paginate.to) {
+        return [];
+      }
 
-    MostrarIngresoFiltrado(){
-      let ingresoFiltrado = 0;
-      if (this.fecha.length != 0){
-        this.fecha.forEach((e) => {
-          ingresoFiltrado = ingresoFiltrado + e.totalMesa;
-          this.ingresoFiltrado = ingresoFiltrado;
-        });
-      }else{ this.ingresoFiltrado = 0}
-    } 
+      var from = this.paginate.current_page - 3; //TODO offset
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + 3 * 2; //TODO offset
+      if (to >= this.paginate.last_page) {
+        to = this.paginate.last_page;
+      }
+
+      var pagesArray = [];
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    },
   },
 };
 </script>
@@ -257,4 +392,5 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+
 </style>
