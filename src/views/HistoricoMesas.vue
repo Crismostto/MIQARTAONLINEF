@@ -69,6 +69,8 @@
         hover
         :items="fecha"
         :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
       >
         <template #cell(fecha_cierre)="row">
           {{ transformarfecha(row.item.fecha_cierre) }}
@@ -136,6 +138,15 @@
           </li>
         </ul>
       </nav>
+
+      <!-- Paginador desde el front para fechas -->
+    
+    <b-pagination v-if="filtrof==true"
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
     </div>
   </div>
 </template>
@@ -199,6 +210,9 @@ export default {
       filtrom:false,
       sinfiltro:false,
       filtrof:false,
+
+      perPage: 5,
+      currentPage: 1,
     };
   },
 
@@ -316,6 +330,11 @@ export default {
   },
 
   computed: {
+    // Calculador de filas desde paginador front.
+      rows() {
+        return this.fecha.length
+      },
+    
     //Propiedad para alumbrar el numero de la paginas actual.
     isActived: function () {
       return this.paginate.current_page;
