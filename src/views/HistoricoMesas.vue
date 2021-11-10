@@ -46,7 +46,7 @@
         <hr />
         <b-button
           v-b-modal.modal-2
-          variant="outline-primary"
+          variant="primary"
           class="btn btn-sm"
           
         >
@@ -239,6 +239,7 @@ export default {
       this.sinfiltro = true;
       this.filtrom = false;
       this.filtrof = false;
+      this.ingresoFiltrado = 0;
     },
 
     changePage: function (page) {
@@ -391,4 +392,5 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+
 </style>

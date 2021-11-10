@@ -2,7 +2,9 @@
   <div class="mesas">
     <div class="header">
       <h1 id="h1">Estado de las mesas</h1>
-      <button @click="refrescarMesas" class="btn btn-primary">Refrescar mesas</button>
+      <button @click="refrescarMesas" class="btn btn-primary">
+        Refrescar mesas
+      </button>
     </div>
     <hr />
     <div class="body">
@@ -108,7 +110,6 @@ export default {
     this.traerDatos();
   },
 
-
   methods: {
     traerDatos() {
       this.ObtenerDatos("mesas").then((respuesta) => {
@@ -151,26 +152,47 @@ export default {
         }
       });
 
-     this.traerDatos();
+      this.traerDatos();
     },
 
     habilitarMesa(id_Mesa) {
+      const Swal = require("sweetalert2");
       console.log(id_Mesa);
-      let habilitar = 0;
-      this.cambiarEstadoMesa("mesas", id_Mesa, habilitar).then((respuesta) => {
-        console.log(respuesta);
+      Swal.fire({
+        title: "Estas seguro de habilitar una mesa ocupada?",
+        text: "ASEGURATE DE QUE NO ESTE OCUPADA EN ESTOS MOMENTOS (EL PEDIDO QUEDA GUARDADO)!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, habilitar mesa!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let habilitar = 0;
+          this.cambiarEstadoMesa("mesas", id_Mesa, habilitar).then(
+            (respuesta) => {
+              console.log(respuesta);
+              if (respuesta.cod == 200) {
+                Swal.fire(
+                  "Se habilito la mesa!",
+                  "Ya se encuentra disponible nuevamente.",
+                  "success"
+                );
+              }
+            }
+          );
+          this.traerDatos();
+        }
       });
-      this.traerDatos();
     },
 
     ObtenerTotal(precioTotal) {
       this.Total = precioTotal;
     },
-    
-    refrescarMesas(){
+
+    refrescarMesas() {
       this.traerDatos();
-    }
-    
+    },
   },
 };
 </script>
@@ -188,7 +210,7 @@ export default {
   border: 2px solid;
 }
 
-.header button{
+.header button {
   color: white;
 }
 
