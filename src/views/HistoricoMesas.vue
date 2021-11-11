@@ -44,12 +44,7 @@
       <div class="filtro-calculo">
         <h6>Calcular ingresos</h6>
         <hr />
-        <b-button
-          v-b-modal.modal-2
-          variant="primary"
-          class="btn btn-sm"
-          
-        >
+        <b-button v-b-modal.modal-2 variant="primary" class="btn btn-sm">
           Ingresos por filtrado (Fecha o Mesa)
         </b-button>
 
@@ -102,7 +97,7 @@
         </template>
       </b-table>
       <nav>
-        <ul v-if="filtrof==false" class="pagination">
+        <ul v-if="filtrof == false" class="pagination">
           <li class="page-item" v-if="paginate.current_page > 1">
             <a
               class="page-link"
@@ -140,13 +135,14 @@
       </nav>
 
       <!-- Paginador desde el front para fechas -->
-    
-    <b-pagination v-if="filtrof==true"
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
+
+      <b-pagination
+        v-if="filtrof == true"
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
     </div>
   </div>
 </template>
@@ -207,9 +203,9 @@ export default {
       Total: 0,
       ingresoFiltrado: 0,
 
-      filtrom:false,
-      sinfiltro:false,
-      filtrof:false,
+      filtrom: false,
+      sinfiltro: false,
+      filtrof: false,
 
       perPage: 5,
       currentPage: 1,
@@ -244,20 +240,31 @@ export default {
 
     changePage: function (page) {
       this.paginate.current_page = page;
-      if (this.sinfiltro == true && this.filtrom== false && this.filtrof == false ){
-      this.traerDatos(page);
-      }else if (this.filtrom== true && this.sinfiltro== false  && this.filtrof== false){
-        this.FiltrajeMesa("historico/mesas/filtro/mesa", this.numMesa + "?page=" + page).then((respuesta) => {
-        console.log("el filtraje de mesa es: " + respuesta);
-        this.datos = respuesta;
-        this.fecha = respuesta.tasks;
-        this.ingresoFiltrado= respuesta.totalMesa;
-        this.paginate = this.datos.paginate;
+      if (
+        this.sinfiltro == true &&
+        this.filtrom == false &&
+        this.filtrof == false
+      ) {
+        this.traerDatos(page);
+      } else if (
+        this.filtrom == true &&
+        this.sinfiltro == false &&
+        this.filtrof == false
+      ) {
+        this.FiltrajeMesa(
+          "historico/mesas/filtro/mesa",
+          this.numMesa + "?page=" + page
+        ).then((respuesta) => {
+          console.log("el filtraje de mesa es: " + respuesta);
+          this.datos = respuesta;
+          this.fecha = respuesta.tasks;
+          this.ingresoFiltrado = respuesta.totalMesa;
+          this.paginate = this.datos.paginate;
 
-        this.sinfiltro = false;
-        this.filtrom = true;
-        this.filtrof = false;
-      });
+          this.sinfiltro = false;
+          this.filtrom = true;
+          this.filtrof = false;
+        });
       }
     },
 
@@ -286,36 +293,52 @@ export default {
     //--------------------------------------- Seccion de filtro de fechas ------------------------------------//
 
     filtrarHistoricos() {
-       this.FiltrajeFecha("historico/mesas/filtro/fecha", this.fechaUno , this.fechaDos).then((respuesta) => {
-        console.log("el filtraje de fecha es: " + respuesta.arrayFiltradoFecha);
-        this.datos = respuesta;
-        this.fecha = respuesta.arrayFiltradoFecha;
-        this.ingresoFiltrado= respuesta.totalFiltroFecha;
+      const Swal = require("sweetalert2");
+      if (this.fechaUno < this.fechaDos) {
+        this.FiltrajeFecha(
+          "historico/mesas/filtro/fecha",
+          this.fechaUno,
+          this.fechaDos
+        ).then((respuesta) => {
+          console.log(
+            "el filtraje de fecha es: " + respuesta.arrayFiltradoFecha
+          );
+          this.datos = respuesta;
+          this.fecha = respuesta.arrayFiltradoFecha;
+          this.ingresoFiltrado = respuesta.totalFiltroFecha;
 
-        this.sinfiltro = false;
-        this.filtrom = false;
-        this.filtrof = true;
+          this.sinfiltro = false;
+          this.filtrom = false;
+          this.filtrof = true;
 
-
-      //Respuesta vieja de filtrado con todos los datos.
-      // this.fecha = this.datos.filter(
-      // (n) => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos
-      // );
-       });
+          //Respuesta vieja de filtrado con todos los datos.
+          // this.fecha = this.datos.filter(
+          // (n) => n.fecha_cierre > this.fechaUno && n.fecha_cierre < this.fechaDos
+          // );
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "La segunda fecha tiene que ser mayor a la cual quiere comparar",
+          text: "Asegurese de modificar las fechas correctamente!",
+        });
+      }
     },
 
     filtrarHistoricosPorMesa() {
-      this.FiltrajeMesa("historico/mesas/filtro/mesa", this.numMesa).then((respuesta) => {
-        console.log("el filtraje de mesa es: " + respuesta);
-        this.datos = respuesta;
-        this.fecha = respuesta.tasks;
-        this.ingresoFiltrado= respuesta.totalMesa;
-        this.paginate = this.datos.paginate;
+      this.FiltrajeMesa("historico/mesas/filtro/mesa", this.numMesa).then(
+        (respuesta) => {
+          console.log("el filtraje de mesa es: " + respuesta);
+          this.datos = respuesta;
+          this.fecha = respuesta.tasks;
+          this.ingresoFiltrado = respuesta.totalMesa;
+          this.paginate = this.datos.paginate;
 
-        this.sinfiltro = false;
-        this.filtrom = true;
-        this.filtrof = false;
-      });
+          this.sinfiltro = false;
+          this.filtrom = true;
+          this.filtrof = false;
+        }
+      );
       // this.fecha = this.datos.filter((n) => n.mesa_id == this.numMesa);
     },
 
@@ -332,10 +355,10 @@ export default {
 
   computed: {
     // Calculador de filas desde paginador front.
-      rows() {
-        return this.fecha.length
-      },
-    
+    rows() {
+      return this.fecha.length;
+    },
+
     //Propiedad para alumbrar el numero de la paginas actual.
     isActived: function () {
       return this.paginate.current_page;
@@ -392,5 +415,4 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-
 </style>

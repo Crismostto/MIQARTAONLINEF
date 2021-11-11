@@ -47,8 +47,21 @@
       <b-table striped hover :fields="fields" :items="this.datos"></b-table>
       <hr />
       <div v-if="mostrarTotal" class="sumaTotal">
-       <a href="http://localhost:8080"> <button v-if="calcularPrecioTotal == 0 || salir == true" class="btn btn-outline-danger">Salir</button> </a>
-        <button v-if="calcularPrecioTotal != 0 && salir==false" @click="pedirCuenta" class="btn btn-outline-danger">Pedir la cuenta</button>
+        <a href="http://localhost:8080">
+          <button
+            v-if="calcularPrecioTotal == 0 || salir == true"
+            class="btn btn-outline-danger"
+          >
+            Salir
+          </button>
+        </a>
+        <button
+          v-if="calcularPrecioTotal != 0 && salir == false"
+          @click="pedirCuenta"
+          class="btn btn-outline-danger"
+        >
+          Pedir la cuenta
+        </button>
         <p class="Total">Total $ {{ calcularPrecioTotal }}</p>
       </div>
     </b-container>
@@ -86,7 +99,7 @@ export default {
       mesa_id: this.$route.params.id,
       precioTotal: 0,
       mostrarTotal: true,
-      salir:false,
+      salir: false,
     };
   },
   created() {
@@ -112,25 +125,37 @@ export default {
       }
     },
 
-    pedirCuenta(){
-   
-    const Swal = require('sweetalert2');
-    console.log(this.mesa_id)
-    let habilitar= 3;
-    this.cambiarEstadoMesa("mesas",this.mesa_id, habilitar).then((respuesta) => {
-     console.log(respuesta);  
-     if (respuesta.cod == 200){
-       Swal.fire({
-            title: 'La cuenta ha sido enviada!',
-            text: 'Espere hasta que el mozo se acerque a cobrarle',
-            icon: 'success',
-            showConfirmButton: false,  
-        })
-       this.salir= true; 
-     }       
-    })  
-    }
-
+    pedirCuenta() {
+      const Swal = require("sweetalert2");
+      console.log(this.mesa_id);
+      Swal.fire({
+        title: "Estas seguro de pedir la cuenta?",
+        text: "Esta accion finaliza el pedido por completo!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, pedir la cuenta!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let habilitar = 3;
+          this.cambiarEstadoMesa("mesas", this.mesa_id, habilitar).then(
+            (respuesta) => {
+              console.log(respuesta);
+              if (respuesta.cod == 200) {
+                Swal.fire({
+                  title: "La cuenta ha sido enviada!",
+                  text: "Espere hasta que el mozo se acerque a cobrarle",
+                  icon: "success",
+                  showConfirmButton: false,
+                });
+                this.salir = true;
+              }
+            }
+          );
+        }
+      });
+    },
   },
 
   computed: {
